@@ -17,6 +17,8 @@ namespace Text_WordDensity_Checker
         List<List<string>> listOutput = new List<List<string>>();
         int countPages = 1;
 
+        List<List<string>> wordCheck = new List<List<string>>();
+
         public void showOutput()
         {
             tbOutput.Clear();
@@ -51,46 +53,54 @@ namespace Text_WordDensity_Checker
             }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSelectCSV_Click(object sender, EventArgs e)
         {
-            tbSearchString.Text = tbSearchString.Text.Replace('\u00a0', '\u0020');
-            tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
+            OpenFileDialog selectCSV = new OpenFileDialog();
+            selectCSV.Title = "Select CSV";
+            selectCSV.DefaultExt = "csv";
+            selectCSV.Multiselect = false;
 
-            string[] searchWords = tbSearchString.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
-            
-            int nTerm = 1 + (countPages - 1) * 2; // nth term of arithmatic sequence (a1 = 1, d = 2)
-
-            listOutput.Add(new List<string>());
-            listOutput.Add(new List<string>());
-
-            listOutput[nTerm].Add("Page "+countPages);
-            listOutput[nTerm].Add("Count");
-            listOutput[nTerm + 1].Add("");
-            listOutput[nTerm + 1].Add("Density");
-
-            foreach (var word in searchWords)
+            if (selectCSV.ShowDialog() == DialogResult.OK)
             {
-                if (countPages <= 1)
+                List<List<string>> wordCheckTemp = new List<List<string>>();
+
+                using (var reader = new StreamReader(selectCSV.FileName))
                 {
-                    listOutput[0].Add(word);
+                    int i = 0;
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+
+
+                        //wordCheck.Add(values.ToList());
+                        wordCheckTemp.Add(new List<string>());
+                        wordCheckTemp[i].Add(values[0]);
+                        wordCheckTemp[i].Add(values[1]);
+
+                        i++;
+                    }
                 }
 
-                string regex = @"\b"+word+@"\b";
-                int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase).Count;
+                wordCheck = wordCheckTemp;
 
-                listOutput[nTerm].Add(countMatches.ToString());
-                listOutput[nTerm + 1].Add(((float)countMatches / (float)countAllWords).ToString());
+                dgvWords.Rows.Clear();
+                dgvWords.Refresh();
+
+                dgvWords.ColumnCount = 2;
+                for (int r = 0; r < wordCheck.Count; r++)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(this.dgvWords);
+
+                    for (int c = 0; c < 2; c++)
+                    {
+                        row.Cells[c].Value = wordCheck[r][c];
+                    }
+
+                    this.dgvWords.Rows.Add(row);
+                }
             }
-
-            countPages++;
-
-            if(countPages != 1)
-            {
-                tbSearchString.ReadOnly = true;
-            }
-
-            showOutput();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -150,7 +160,7 @@ namespace Text_WordDensity_Checker
                 listOutput[0].Add("");
                 listOutput[0].Add("Word");
 
-                tbSearchString.ReadOnly = false;
+                //tbSearchString.ReadOnly = false;
             }
             else if (confClear == DialogResult.No)
             {
@@ -170,5 +180,46 @@ namespace Text_WordDensity_Checker
                 e.Cancel = true;
             }
         }
+
+        /*
+        tbSearchString.Text = tbSearchString.Text.Replace('\u00a0', '\u0020');
+        tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
+
+        string[] searchWords = tbSearchString.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
+
+        int nTerm = 1 + (countPages - 1) * 2; // nth term of arithmatic sequence (a1 = 1, d = 2)
+
+        listOutput.Add(new List<string>());
+            listOutput.Add(new List<string>());
+
+            listOutput[nTerm].Add("Page "+countPages);
+        listOutput[nTerm].Add("Count");
+        listOutput[nTerm + 1].Add("");
+        listOutput[nTerm + 1].Add("Density");
+
+            foreach (var word in searchWords)
+            {
+                if (countPages <= 1)
+                {
+                    listOutput[0].Add(word);
+            }
+
+            string regex = @"\b" + word + @"\b";
+            int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase).Count;
+
+            listOutput[nTerm].Add(countMatches.ToString());
+            listOutput[nTerm + 1].Add(((float) countMatches / (float) countAllWords).ToString());
+                    }
+
+        countPages++;
+
+        if (countPages != 1)
+        {
+            tbSearchString.ReadOnly = true;
+        }
+
+        showOutput();
+        */
     }
 }

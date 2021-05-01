@@ -34,17 +34,17 @@ namespace Text_WordDensity_Checker
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbSource = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tbSearchString = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSource = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnSelectCSV = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnClearPrev = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.dgvWords = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -52,6 +52,7 @@ namespace Text_WordDensity_Checker
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -98,24 +99,12 @@ namespace Text_WordDensity_Checker
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.tbSearchString);
+            this.panel2.Controls.Add(this.dgvWords);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(407, 103);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(196, 540);
             this.panel2.TabIndex = 1;
-            // 
-            // tbSearchString
-            // 
-            this.tbSearchString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbSearchString.Location = new System.Drawing.Point(0, 0);
-            this.tbSearchString.MaxLength = 0;
-            this.tbSearchString.Multiline = true;
-            this.tbSearchString.Name = "tbSearchString";
-            this.tbSearchString.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbSearchString.Size = new System.Drawing.Size(196, 540);
-            this.tbSearchString.TabIndex = 0;
-            this.tbSearchString.WordWrap = false;
             // 
             // panel3
             // 
@@ -160,22 +149,22 @@ namespace Text_WordDensity_Checker
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.btnSearch);
+            this.panel5.Controls.Add(this.btnSelectCSV);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(407, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(196, 94);
             this.panel5.TabIndex = 4;
             // 
-            // btnSearch
+            // btnSelectCSV
             // 
-            this.btnSearch.Location = new System.Drawing.Point(3, 3);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(114, 91);
-            this.btnSearch.TabIndex = 0;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSelectCSV.Location = new System.Drawing.Point(3, 3);
+            this.btnSelectCSV.Name = "btnSelectCSV";
+            this.btnSelectCSV.Size = new System.Drawing.Size(114, 91);
+            this.btnSelectCSV.TabIndex = 0;
+            this.btnSelectCSV.Text = "Select";
+            this.btnSelectCSV.UseVisualStyleBackColor = true;
+            this.btnSelectCSV.Click += new System.EventHandler(this.btnSelectCSV_Click);
             // 
             // panel6
             // 
@@ -218,6 +207,21 @@ namespace Text_WordDensity_Checker
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // dgvWords
+            // 
+            this.dgvWords.AllowUserToAddRows = false;
+            this.dgvWords.AllowUserToDeleteRows = false;
+            this.dgvWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWords.ColumnHeadersVisible = false;
+            this.dgvWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvWords.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvWords.Location = new System.Drawing.Point(0, 0);
+            this.dgvWords.Name = "dgvWords";
+            this.dgvWords.ReadOnly = true;
+            this.dgvWords.RowHeadersVisible = false;
+            this.dgvWords.Size = new System.Drawing.Size(196, 540);
+            this.dgvWords.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,12 +236,12 @@ namespace Text_WordDensity_Checker
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -249,16 +253,16 @@ namespace Text_WordDensity_Checker
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox tbSource;
-        private System.Windows.Forms.TextBox tbSearchString;
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnSource;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnSelectCSV;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClearPrev;
         private System.Windows.Forms.Button btnClearAll;
+        private System.Windows.Forms.DataGridView dgvWords;
     }
 }
 
