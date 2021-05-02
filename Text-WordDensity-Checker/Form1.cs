@@ -18,10 +18,12 @@ namespace Text_WordDensity_Checker
         int countPages = 1;
 
         List<List<string>> wordCheck = new List<List<string>>();
+        List<List<string>> wordOutput = new List<List<string>>();
+
 
         public void showOutput()
         {
-            tbOutput.Clear();
+            /*tbOutput.Clear();
             for (int i = 0; i < listOutput[0].Count; i++)
             {
                 for (int j = 0; j < listOutput.Count; j++)
@@ -29,14 +31,14 @@ namespace Text_WordDensity_Checker
                     tbOutput.Text += listOutput[j][i] + "\t";
                 }
                 tbOutput.Text += "\r\n";
-            }
+            }*/
         }
 
         public Form1()
         {
-            listOutput.Add(new List<string>());
+            /*listOutput.Add(new List<string>());
             listOutput[0].Add("");
-            listOutput[0].Add("Word");
+            listOutput[0].Add("Word");*/
 
             InitializeComponent();
         }
@@ -63,6 +65,8 @@ namespace Text_WordDensity_Checker
             if (selectCSV.ShowDialog() == DialogResult.OK)
             {
                 List<List<string>> wordCheckTemp = new List<List<string>>();
+                List<List<string>> wordOutputTemp = new List<List<string>>();
+
 
                 using (var reader = new StreamReader(selectCSV.FileName))
                 {
@@ -75,14 +79,25 @@ namespace Text_WordDensity_Checker
 
                         //wordCheck.Add(values.ToList());
                         wordCheckTemp.Add(new List<string>());
+                        wordOutputTemp.Add(new List<string>());
+
+                        values[0].Replace('\u00a0', '\u0020');
+                        values[1].Replace('\u00a0', '\u0020');
+
+                        wordOutputTemp.Add(new List<string>());
+                        wordOutputTemp[i].Add(values[0]);
+                        wordOutputTemp[i].Add("");
+                        wordOutputTemp[i].Add("");
+
                         wordCheckTemp[i].Add(values[0]);
-                        wordCheckTemp[i].Add(values[1]);
+                        wordCheckTemp[i].Add(values[1].Replace("%",""));
 
                         i++;
                     }
                 }
 
                 wordCheck = wordCheckTemp;
+                wordOutput = wordOutputTemp;
 
                 dgvWords.Rows.Clear();
                 dgvWords.Refresh();
@@ -103,28 +118,100 @@ namespace Text_WordDensity_Checker
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnCheck_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveCSV = new SaveFileDialog();
-            saveCSV.Title = "Save CSV";
-            saveCSV.DefaultExt = "csv";
-            
-            if (saveCSV.ShowDialog() == DialogResult.OK)
-            {
-                string finalCSV = "";
+            tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
 
-                for (int i = 0; i < listOutput[0].Count; i++)
+            var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
+
+            int nTerm = 1 + (countPages - 1) * 2; // nth term of arithmatic sequence (a1 = 1, d = 2)
+
+            /*listOutput.Add(new List<string>());
+            listOutput.Add(new List<string>());
+
+            listOutput[nTerm].Add("Page " + countPages);
+            listOutput[nTerm].Add("Count");
+            listOutput[nTerm + 1].Add("");
+            listOutput[nTerm + 1].Add("Density");*/
+
+            Parallel.For(0, wordCheck.Count, i => {
+                
+                
+                string regex = @"\b" + wordCheck[i][0] + @"\b";
+                int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase | RegexOptions.Compiled).Count;
+
+                wordOutput[i][2] = countMatches.ToString();
+                wordOutput[i][1] = (((float)countMatches*100)/ (float)countAllWords).ToString();
+
+                dgvOutput.Rows.Clear();
+                dgvOutput.Refresh();
+
+                dgvOutput.ColumnCount = 3;
+                dgvOutput.Columns[2].Visible = false;
+
+                float actualDensity = float.Parse(wordOutput[i][1]);
+                float expectedDensity = float.Parse(wordCheck[i][1]);
+
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(this.dgvOutput);
+                for (int c = 0; c < 2; c++)
                 {
-                    for (int j = 0; j < listOutput.Count; j++)
-                    {
-                        finalCSV += listOutput[j][i] + ",";
-                    }
-                    finalCSV += "\r\n";
+                    row.Cells[c].Value = wordOutput[i][c];
+                    row.Cells[2].Value = expectedDensity - actualDensity;
                 }
 
-                string filePath = saveCSV.FileName;
-                File.WriteAllText(filePath, finalCSV);
-            }
+                if (actualDensity >= 1.5*expectedDensity)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Red;
+                    row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+                }
+                else if (actualDensity >= expectedDensity)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Yellow;
+                    row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+                }
+
+                dgvOutput.Rows.Add(row);
+
+                /*for (int r = 0; r < wordCheck.Count; r++)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(this.dgvWords);
+
+                    for (int c = 0; c < 2; c++)
+                    {
+                        row.Cells[c].Value = wordCheck[r][c];
+                    }
+
+                    this.dgvWords.Rows.Add(row);
+                }*/
+
+                /*listOutput[nTerm].Add(countMatches.ToString());
+                listOutput[nTerm + 1].Add(((float)countMatches / (float)countAllWords).ToString());*/
+            });
+
+            dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Descending);
+
+            /*foreach (var row in wordCheck)
+            {
+
+                string regex = @"\b" + row[0] + @"\b";
+                int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase | RegexOptions.Compiled).Count;
+
+                
+
+                listOutput[nTerm].Add(countMatches.ToString());
+                listOutput[nTerm + 1].Add(((float)countMatches / (float)countAllWords).ToString());
+            }*/
+
+            //countPages++;
+
+            /*if (countPages != 1)
+            {
+                //tbSearchString.ReadOnly = true;
+            }*/
+
+            /*showOutput();*/
         }
 
         private void btnClearPrev_Click(object sender, EventArgs e)
@@ -151,7 +238,7 @@ namespace Text_WordDensity_Checker
             DialogResult confClear = MessageBox.Show("Are you sure you want to clear all output?", "Clear Confirmation", MessageBoxButtons.YesNo);
             if (confClear == DialogResult.Yes)
             {
-                tbOutput.Clear();
+                /*tbOutput.Clear();*/
                 countPages = 1;
 
                 listOutput.Clear();
@@ -180,6 +267,30 @@ namespace Text_WordDensity_Checker
                 e.Cancel = true;
             }
         }
+
+        /*
+        SaveFileDialog saveCSV = new SaveFileDialog();
+        saveCSV.Title = "Save CSV";
+            saveCSV.DefaultExt = "csv";
+            
+            if (saveCSV.ShowDialog() == DialogResult.OK)
+            {
+                string finalCSV = "";
+
+                for (int i = 0; i<listOutput[0].Count; i++)
+                {
+                    for (int j = 0; j<listOutput.Count; j++)
+                    {
+                        finalCSV += listOutput[j][i] + ",";
+                    }
+                finalCSV += "\r\n";
+                }
+
+            string filePath = saveCSV.FileName;
+            File.WriteAllText(filePath, finalCSV);
+            }
+        */
+
 
         /*
         tbSearchString.Text = tbSearchString.Text.Replace('\u00a0', '\u0020');

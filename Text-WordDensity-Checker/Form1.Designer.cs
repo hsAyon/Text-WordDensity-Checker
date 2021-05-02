@@ -34,8 +34,8 @@ namespace Text_WordDensity_Checker
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbSource = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dgvWords = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tbOutput = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSource = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -43,16 +43,17 @@ namespace Text_WordDensity_Checker
             this.panel6 = new System.Windows.Forms.Panel();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnClearPrev = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.dgvWords = new System.Windows.Forms.DataGridView();
+            this.btnCheck = new System.Windows.Forms.Button();
+            this.dgvOutput = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -106,27 +107,29 @@ namespace Text_WordDensity_Checker
             this.panel2.Size = new System.Drawing.Size(196, 540);
             this.panel2.TabIndex = 1;
             // 
+            // dgvWords
+            // 
+            this.dgvWords.AllowUserToAddRows = false;
+            this.dgvWords.AllowUserToDeleteRows = false;
+            this.dgvWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWords.ColumnHeadersVisible = false;
+            this.dgvWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvWords.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvWords.Location = new System.Drawing.Point(0, 0);
+            this.dgvWords.Name = "dgvWords";
+            this.dgvWords.ReadOnly = true;
+            this.dgvWords.RowHeadersVisible = false;
+            this.dgvWords.Size = new System.Drawing.Size(196, 540);
+            this.dgvWords.TabIndex = 0;
+            // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.tbOutput);
+            this.panel3.Controls.Add(this.dgvOutput);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(609, 103);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(399, 540);
             this.panel3.TabIndex = 2;
-            // 
-            // tbOutput
-            // 
-            this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbOutput.Location = new System.Drawing.Point(0, 0);
-            this.tbOutput.MaxLength = 0;
-            this.tbOutput.Multiline = true;
-            this.tbOutput.Name = "tbOutput";
-            this.tbOutput.ReadOnly = true;
-            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutput.Size = new System.Drawing.Size(399, 540);
-            this.tbOutput.TabIndex = 0;
-            this.tbOutput.WordWrap = false;
             // 
             // panel4
             // 
@@ -170,7 +173,7 @@ namespace Text_WordDensity_Checker
             // 
             this.panel6.Controls.Add(this.btnClearAll);
             this.panel6.Controls.Add(this.btnClearPrev);
-            this.panel6.Controls.Add(this.btnSave);
+            this.panel6.Controls.Add(this.btnCheck);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(609, 3);
             this.panel6.Name = "panel6";
@@ -197,30 +200,25 @@ namespace Text_WordDensity_Checker
             this.btnClearPrev.UseVisualStyleBackColor = true;
             this.btnClearPrev.Click += new System.EventHandler(this.btnClearPrev_Click);
             // 
-            // btnSave
+            // btnCheck
             // 
-            this.btnSave.Location = new System.Drawing.Point(3, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(113, 88);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Save CSV";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnCheck.Location = new System.Drawing.Point(3, 3);
+            this.btnCheck.Name = "btnCheck";
+            this.btnCheck.Size = new System.Drawing.Size(113, 88);
+            this.btnCheck.TabIndex = 0;
+            this.btnCheck.Text = "Check";
+            this.btnCheck.UseVisualStyleBackColor = true;
+            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
-            // dgvWords
+            // dgvOutput
             // 
-            this.dgvWords.AllowUserToAddRows = false;
-            this.dgvWords.AllowUserToDeleteRows = false;
-            this.dgvWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvWords.ColumnHeadersVisible = false;
-            this.dgvWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvWords.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvWords.Location = new System.Drawing.Point(0, 0);
-            this.dgvWords.Name = "dgvWords";
-            this.dgvWords.ReadOnly = true;
-            this.dgvWords.RowHeadersVisible = false;
-            this.dgvWords.Size = new System.Drawing.Size(196, 540);
-            this.dgvWords.TabIndex = 0;
+            this.dgvOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOutput.Location = new System.Drawing.Point(0, 0);
+            this.dgvOutput.Name = "dgvOutput";
+            this.dgvOutput.ReadOnly = true;
+            this.dgvOutput.Size = new System.Drawing.Size(399, 540);
+            this.dgvOutput.TabIndex = 0;
             // 
             // Form1
             // 
@@ -236,12 +234,12 @@ namespace Text_WordDensity_Checker
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).EndInit();
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -253,16 +251,16 @@ namespace Text_WordDensity_Checker
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox tbSource;
-        private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnSource;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnSelectCSV;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.Button btnClearPrev;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.DataGridView dgvWords;
+        private System.Windows.Forms.DataGridView dgvOutput;
     }
 }
 
