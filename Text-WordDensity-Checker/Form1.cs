@@ -41,6 +41,7 @@ namespace Text_WordDensity_Checker
             listOutput[0].Add("Word");*/
 
             InitializeComponent();
+            //Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         private void btnSource_Click(object sender, EventArgs e)
@@ -76,6 +77,7 @@ namespace Text_WordDensity_Checker
                         var line = reader.ReadLine();
                         var values = line.Split(',');
 
+                        if (values[0].Equals("")) { break; }
 
                         //wordCheck.Add(values.ToList());
                         wordCheckTemp.Add(new List<string>());
@@ -83,6 +85,8 @@ namespace Text_WordDensity_Checker
 
                         values[0].Replace('\u00a0', '\u0020');
                         values[1].Replace('\u00a0', '\u0020');
+
+                        
 
                         wordOutputTemp.Add(new List<string>());
                         wordOutputTemp[i].Add(values[0]);
@@ -134,44 +138,47 @@ namespace Text_WordDensity_Checker
             listOutput[nTerm + 1].Add("");
             listOutput[nTerm + 1].Add("Density");*/
 
-            Parallel.For(0, wordCheck.Count, i => {
-                
-                
-                string regex = @"\b" + wordCheck[i][0] + @"\b";
-                int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase | RegexOptions.Compiled).Count;
+            dgvOutput.Rows.Clear();
+            dgvOutput.Refresh();
 
-                wordOutput[i][2] = countMatches.ToString();
-                wordOutput[i][1] = (((float)countMatches*100)/ (float)countAllWords).ToString();
+            Parallel.For(0, wordCheck.Count - 1, i =>
+           {
 
-                dgvOutput.Rows.Clear();
-                dgvOutput.Refresh();
+               string regex = @"\b" + wordCheck[i][0] + @"\b";
+               int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase | RegexOptions.Compiled).Count;
 
-                dgvOutput.ColumnCount = 3;
-                dgvOutput.Columns[2].Visible = false;
+               wordOutput[i][2] = countMatches.ToString();
+               wordOutput[i][1] = (((float)countMatches * 100) / (float)countAllWords).ToString();
 
-                float actualDensity = float.Parse(wordOutput[i][1]);
-                float expectedDensity = float.Parse(wordCheck[i][1]);
+               dgvOutput.ColumnCount = 3;
+               dgvOutput.Columns[2].Visible = false;
 
-                DataGridViewRow row = new DataGridViewRow();
-                row.CreateCells(this.dgvOutput);
-                for (int c = 0; c < 2; c++)
-                {
-                    row.Cells[c].Value = wordOutput[i][c];
-                    row.Cells[2].Value = expectedDensity - actualDensity;
-                }
+               float actualDensity = float.Parse(wordOutput[i][1]);
+               float expectedDensity = float.Parse(wordCheck[i][1]);
 
-                if (actualDensity >= 1.5*expectedDensity)
-                {
-                    row.DefaultCellStyle.ForeColor = Color.Red;
-                    row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
-                }
-                else if (actualDensity >= expectedDensity)
-                {
-                    row.DefaultCellStyle.ForeColor = Color.Yellow;
-                    row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
-                }
+               DataGridViewRow row = new DataGridViewRow();
+               row.CreateCells(this.dgvOutput);
+               row.DefaultCellStyle = dgvOutput.DefaultCellStyle;
+               for (int c = 0; c < 2; c++)
+               {
+                   row.Cells[c].Value = wordOutput[i][c];
+                   row.Cells[2].Value = expectedDensity - actualDensity;
+               }
 
-                dgvOutput.Rows.Add(row);
+               if (actualDensity > 1.5 * expectedDensity)
+               {
+                   row.DefaultCellStyle.ForeColor = Color.Red;
+                   row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+               }
+               else if (actualDensity > expectedDensity)
+               {
+                   row.DefaultCellStyle.ForeColor = Color.Yellow;
+                   row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+               }
+
+               dgvOutput.BeginInvoke(new Action(() => { dgvOutput.Rows.Add(row); }));
+
+                //dgvOutput.Rows.Add(row);
 
                 /*for (int r = 0; r < wordCheck.Count; r++)
                 {
@@ -188,9 +195,9 @@ namespace Text_WordDensity_Checker
 
                 /*listOutput[nTerm].Add(countMatches.ToString());
                 listOutput[nTerm + 1].Add(((float)countMatches / (float)countAllWords).ToString());*/
-            });
+           });
 
-            dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Descending);
+            dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Ascending);
 
             /*foreach (var row in wordCheck)
             {
@@ -213,6 +220,85 @@ namespace Text_WordDensity_Checker
 
             /*showOutput();*/
         }
+
+        /*for(int i = 0; i < wordCheck.Count; i++){
+
+            string regex = @"\b" + wordCheck[i][0] + @"\b";
+            int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase | RegexOptions.Compiled).Count;
+
+            wordOutput[i][2] = countMatches.ToString();
+            wordOutput[i][1] = (((float)countMatches * 100) / (float)countAllWords).ToString();
+
+            dgvOutput.ColumnCount = 3;
+            dgvOutput.Columns[2].Visible = false;
+
+            float actualDensity = float.Parse(wordOutput[i][1]);
+            float expectedDensity = float.Parse(wordCheck[i][1]);
+
+            DataGridViewRow row = new DataGridViewRow();
+            row.CreateCells(this.dgvOutput);
+            row.DefaultCellStyle = dgvOutput.DefaultCellStyle;
+            for (int c = 0; c < 2; c++)
+            {
+                row.Cells[c].Value = wordOutput[i][c];
+                row.Cells[2].Value = expectedDensity - actualDensity;
+            }
+
+            if (actualDensity > 1.5 * expectedDensity)
+            {
+                row.DefaultCellStyle.ForeColor = Color.Red;
+                row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+            }
+            else if (actualDensity > expectedDensity)
+            {
+                row.DefaultCellStyle.ForeColor = Color.Yellow;
+                row.DefaultCellStyle.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+            }
+
+            dgvOutput.Invoke(new Action(() => { dgvOutput.Rows.Add(row); }));
+
+            //dgvOutput.Rows.Add(row);
+
+            *//*for (int r = 0; r < wordCheck.Count; r++)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(this.dgvWords);
+
+                for (int c = 0; c < 2; c++)
+                {
+                    row.Cells[c].Value = wordCheck[r][c];
+                }
+
+                this.dgvWords.Rows.Add(row);
+            }*/
+
+        /*listOutput[nTerm].Add(countMatches.ToString());
+        listOutput[nTerm + 1].Add(((float)countMatches / (float)countAllWords).ToString());*//*
+    }
+
+    dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Ascending);
+
+    *//*foreach (var row in wordCheck)
+    {
+
+        string regex = @"\b" + row[0] + @"\b";
+        int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase | RegexOptions.Compiled).Count;
+
+
+
+        listOutput[nTerm].Add(countMatches.ToString());
+        listOutput[nTerm + 1].Add(((float)countMatches / (float)countAllWords).ToString());
+    }*//*
+
+    //countPages++;
+
+    *//*if (countPages != 1)
+    {
+        //tbSearchString.ReadOnly = true;
+    }*/
+
+        /*showOutput();*//*
+    }*/
 
         private void btnClearPrev_Click(object sender, EventArgs e)
         {
