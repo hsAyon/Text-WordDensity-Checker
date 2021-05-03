@@ -36,6 +36,7 @@ namespace Text_WordDensity_Checker
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvWords = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.dgvOutput = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSource = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -44,16 +45,15 @@ namespace Text_WordDensity_Checker
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnClearPrev = new System.Windows.Forms.Button();
             this.btnCheck = new System.Windows.Forms.Button();
-            this.dgvOutput = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -111,6 +111,7 @@ namespace Text_WordDensity_Checker
             // 
             this.dgvWords.AllowUserToAddRows = false;
             this.dgvWords.AllowUserToDeleteRows = false;
+            this.dgvWords.AllowUserToResizeRows = false;
             this.dgvWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvWords.ColumnHeadersVisible = false;
             this.dgvWords.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -130,6 +131,21 @@ namespace Text_WordDensity_Checker
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(399, 540);
             this.panel3.TabIndex = 2;
+            // 
+            // dgvOutput
+            // 
+            this.dgvOutput.AllowUserToAddRows = false;
+            this.dgvOutput.AllowUserToDeleteRows = false;
+            this.dgvOutput.AllowUserToResizeRows = false;
+            this.dgvOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOutput.Location = new System.Drawing.Point(0, 0);
+            this.dgvOutput.Name = "dgvOutput";
+            this.dgvOutput.ReadOnly = true;
+            this.dgvOutput.RowHeadersVisible = false;
+            this.dgvOutput.Size = new System.Drawing.Size(399, 540);
+            this.dgvOutput.TabIndex = 0;
+            this.dgvOutput.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvOutput_SortCompare);
             // 
             // panel4
             // 
@@ -210,16 +226,6 @@ namespace Text_WordDensity_Checker
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
-            // dgvOutput
-            // 
-            this.dgvOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvOutput.Location = new System.Drawing.Point(0, 0);
-            this.dgvOutput.Name = "dgvOutput";
-            this.dgvOutput.ReadOnly = true;
-            this.dgvOutput.Size = new System.Drawing.Size(399, 540);
-            this.dgvOutput.TabIndex = 0;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,10 +242,10 @@ namespace Text_WordDensity_Checker
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).EndInit();
             this.ResumeLayout(false);
 
         }
