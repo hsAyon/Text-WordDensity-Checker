@@ -20,20 +20,6 @@ namespace Text_WordDensity_Checker
         List<List<string>> wordCheck = new List<List<string>>();
         List<List<string>> wordOutput = new List<List<string>>();
 
-
-        public void showOutput()
-        {
-            /*tbOutput.Clear();
-            for (int i = 0; i < listOutput[0].Count; i++)
-            {
-                for (int j = 0; j < listOutput.Count; j++)
-                {
-                    tbOutput.Text += listOutput[j][i] + "\t";
-                }
-                tbOutput.Text += "\r\n";
-            }*/
-        }
-
         public Form1()
         {
             /*listOutput.Add(new List<string>());
@@ -41,6 +27,7 @@ namespace Text_WordDensity_Checker
             listOutput[0].Add("Word");*/
 
             InitializeComponent();
+            //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
         }
 
@@ -128,10 +115,16 @@ namespace Text_WordDensity_Checker
             return 0;
         }
 
+        //delegate string SetTextCallback();
+
+        
+
         private void btnCheck_Click(object sender, EventArgs e)
         {
 
             tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
+
+            var source = tbSource.Text;
 
             var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
 
@@ -171,7 +164,7 @@ namespace Text_WordDensity_Checker
             {
 
                 string regex = @"\b" + wordCheck[i][0] + @"\b";
-                int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase).Count;
+                int countMatches = Regex.Matches(source, regex, RegexOptions.IgnoreCase).Count;
                 // | RegexOptions.Compiled
 
                 wordOutput[i][2] = countMatches.ToString();
@@ -295,6 +288,47 @@ namespace Text_WordDensity_Checker
             {
                 e.Cancel = true;
             }
+        }
+
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            findWord();
+        }
+
+        private void findWord()
+        {
+            tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
+
+            string[] words = tbFind.Text.Split(',');
+            for (int i = 0; i < words.Length; i++)
+            {
+                words[i] = words[i].Trim();
+            }
+            foreach (var word in words)
+            {
+                string regex = @"\b" + word + @"\b";
+                MatchCollection keywordMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase);
+                foreach (Match m in keywordMatches)
+                {
+                    //rtbADB.Select(m.Index, m.Length);
+                    tbSource.SelectionStart = m.Index;
+                    tbSource.SelectionLength = m.Length;
+                    tbSource.SelectionBackColor = Color.Yellow;
+                }
+            }
+            tbSource.DeselectAll();
+        }
+
+        /*private void findScrollBarColor()
+        {
+            pbScrollbarColors.Image = new Bitmap(pbScrollbarColors.Width, pbScrollbarColors.Height);
+            pbScrollbarColors.BackColor = Color.Transparent;
+        }
+*/
+        private void btnFindClear_Click(object sender, EventArgs e)
+        {
+            tbSource.SelectAll();
+            tbSource.SelectionBackColor = Color.White;
         }
 
         /*
