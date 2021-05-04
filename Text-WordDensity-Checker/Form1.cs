@@ -154,9 +154,15 @@ namespace Text_WordDensity_Checker
             temp.Columns.Add("density", typeof(float));
             temp.Columns.Add("difference", typeof(float));*/
 
-            dgvOutput.ColumnCount = 3;
-            //dgvOutput.Columns[2].HeaderText = "Difference";
-            //dgvOutput.Columns[2].ValueType = typeof(float);
+            dgvOutput.ColumnCount = 4;
+
+            dgvOutput.Columns[0].HeaderText = "Word";
+            dgvOutput.Columns[1].HeaderText = "Density";
+            dgvOutput.Columns[2].HeaderText = "Count";
+
+            int tempColumnId = dgvOutput.ColumnCount - 1;
+            dgvOutput.Columns[tempColumnId].HeaderText = "Difference";
+            dgvOutput.Columns[tempColumnId].ValueType = typeof(float);
 
             //dgvOutput.Columns[2].Visible = false;
             int rowAddCounter = 0;
@@ -181,8 +187,9 @@ namespace Text_WordDensity_Checker
 
                 row.Cells[0].Value = wordOutput[i][0];
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
+                row.Cells[2].Value = wordOutput[i][2];
 
-                row.Cells[2].Value = expectedDensity - actualDensity;
+                row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
                 //actualDensity > 1.5 * expectedDensity
                 if (actualDensity > 1.5 * expectedDensity)
@@ -224,7 +231,7 @@ namespace Text_WordDensity_Checker
                     rowAddCounter++;
                     if(rowAddCounter == wordCheck.Count)
                     {
-                        dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Ascending);
+                        dgvOutput.Sort(dgvOutput.Columns[tempColumnId], ListSortDirection.Ascending);
                         dgvOutput.ClearSelection();
                     }
                 }));
@@ -288,17 +295,6 @@ namespace Text_WordDensity_Checker
             {
                 e.Cancel = true;
             }
-        }
-
-        private void dgvOutput_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
-        {
-            float a = float.Parse(e.CellValue1.ToString()), b = float.Parse(e.CellValue2.ToString());
-
-            // If the cell value is already an integer, just cast it instead of parsing
-
-            e.SortResult = a.CompareTo(b);
-
-            e.Handled = true;
         }
 
         /*

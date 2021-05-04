@@ -145,7 +145,7 @@ namespace Text_WordDensity_Checker
             this.dgvOutput.RowHeadersVisible = false;
             this.dgvOutput.Size = new System.Drawing.Size(399, 540);
             this.dgvOutput.TabIndex = 0;
-            this.dgvOutput.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvOutput_SortCompare);
+            //this.dgvOutput.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvOutput_SortCompare);
             // 
             // panel4
             // 
