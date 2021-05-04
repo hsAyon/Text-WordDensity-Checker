@@ -27,6 +27,7 @@ namespace Text_WordDensity_Checker
             listOutput[0].Add("Word");*/
 
             InitializeComponent();
+            
             //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
         }
@@ -197,8 +198,8 @@ namespace Text_WordDensity_Checker
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
-                        cell.Style.ForeColor = Color.Orange;
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.ForeColor = Color.Green;
                     }
                 } 
                 else if (actualDensity <= 0)
@@ -214,7 +215,7 @@ namespace Text_WordDensity_Checker
                     foreach (DataGridViewCell cell in row.Cells)
                     {
                         cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
-                        cell.Style.ForeColor = Color.Green;
+                        cell.Style.ForeColor = Color.Orange;
                     }
                 }
 

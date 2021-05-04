@@ -91,7 +91,7 @@ namespace Text_WordDensity_Checker
             this.btnSelectCSV.Name = "btnSelectCSV";
             this.btnSelectCSV.Size = new System.Drawing.Size(114, 91);
             this.btnSelectCSV.TabIndex = 0;
-            this.btnSelectCSV.Text = "Select";
+            this.btnSelectCSV.Text = "Select CSV";
             this.btnSelectCSV.UseVisualStyleBackColor = true;
             this.btnSelectCSV.Click += new System.EventHandler(this.btnSelectCSV_Click);
             // 
@@ -141,9 +141,9 @@ namespace Text_WordDensity_Checker
             // 
             this.btnSource.Location = new System.Drawing.Point(3, 3);
             this.btnSource.Name = "btnSource";
-            this.btnSource.Size = new System.Drawing.Size(91, 41);
+            this.btnSource.Size = new System.Drawing.Size(165, 49);
             this.btnSource.TabIndex = 8;
-            this.btnSource.Text = "Open Source";
+            this.btnSource.Text = "Open Source (Raw Text)";
             this.btnSource.UseVisualStyleBackColor = true;
             this.btnSource.Click += new System.EventHandler(this.btnSource_Click);
             // 
@@ -246,7 +246,7 @@ namespace Text_WordDensity_Checker
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1027, 685);
             this.Name = "Form1";
-            this.Text = "Keyword Density Checker";
+            this.Text = "Text Word Density Checker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClose_Click);
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
