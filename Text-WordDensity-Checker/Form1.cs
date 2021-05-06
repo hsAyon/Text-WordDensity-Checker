@@ -288,5 +288,17 @@ namespace Text_WordDensity_Checker
                 e.Handled = true;
             }
         }
+
+        private void tbSource_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool ctrlV = e.Modifiers == Keys.Control && e.KeyCode == Keys.V;
+            bool shiftIns = e.Modifiers == Keys.Shift && e.KeyCode == Keys.Insert;
+
+            if (ctrlV || shiftIns)
+            {
+                tbSource.Text += (string)Clipboard.GetData("Text");
+                e.Handled = true;
+            }
+        }
     }
 }

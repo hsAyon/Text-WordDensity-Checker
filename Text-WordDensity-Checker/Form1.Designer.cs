@@ -260,6 +260,7 @@ namespace Text_WordDensity_Checker
             this.tbSource.TabIndex = 0;
             this.tbSource.Text = "";
             this.tbSource.TextChanged += new System.EventHandler(this.tbSource_TextChanged);
+            this.tbSource.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSource_KeyDown);
             // 
             // tableLayoutPanel1
             // 
