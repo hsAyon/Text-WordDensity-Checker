@@ -31,6 +31,8 @@ namespace Text_WordDensity_Checker
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudMultiplier = new System.Windows.Forms.NumericUpDown();
             this.btnCheck = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnSelectCSV = new System.Windows.Forms.Button();
@@ -47,6 +49,7 @@ namespace Text_WordDensity_Checker
             this.tbSource = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -59,12 +62,53 @@ namespace Text_WordDensity_Checker
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.label1);
+            this.panel6.Controls.Add(this.nudMultiplier);
             this.panel6.Controls.Add(this.btnCheck);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(609, 3);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(399, 94);
             this.panel6.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Multiplying Factor";
+            // 
+            // nudMultiplier
+            // 
+            this.nudMultiplier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudMultiplier.DecimalPlaces = 2;
+            this.nudMultiplier.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nudMultiplier.Location = new System.Drawing.Point(98, 71);
+            this.nudMultiplier.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudMultiplier.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMultiplier.Name = "nudMultiplier";
+            this.nudMultiplier.Size = new System.Drawing.Size(120, 20);
+            this.nudMultiplier.TabIndex = 1;
+            this.nudMultiplier.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            65536});
             // 
             // btnCheck
             // 
@@ -153,7 +197,7 @@ namespace Text_WordDensity_Checker
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(609, 103);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(399, 540);
+            this.panel3.Size = new System.Drawing.Size(399, 517);
             this.panel3.TabIndex = 2;
             // 
             // dgvOutput
@@ -167,8 +211,9 @@ namespace Text_WordDensity_Checker
             this.dgvOutput.Name = "dgvOutput";
             this.dgvOutput.ReadOnly = true;
             this.dgvOutput.RowHeadersVisible = false;
-            this.dgvOutput.Size = new System.Drawing.Size(399, 540);
+            this.dgvOutput.Size = new System.Drawing.Size(399, 517);
             this.dgvOutput.TabIndex = 0;
+            this.dgvOutput.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvOutput_SortCompare);
             // 
             // panel2
             // 
@@ -176,7 +221,7 @@ namespace Text_WordDensity_Checker
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(407, 103);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(196, 540);
+            this.panel2.Size = new System.Drawing.Size(196, 517);
             this.panel2.TabIndex = 1;
             // 
             // dgvWords
@@ -192,7 +237,7 @@ namespace Text_WordDensity_Checker
             this.dgvWords.Name = "dgvWords";
             this.dgvWords.ReadOnly = true;
             this.dgvWords.RowHeadersVisible = false;
-            this.dgvWords.Size = new System.Drawing.Size(196, 540);
+            this.dgvWords.Size = new System.Drawing.Size(196, 517);
             this.dgvWords.TabIndex = 0;
             // 
             // panel1
@@ -201,7 +246,7 @@ namespace Text_WordDensity_Checker
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 103);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(398, 540);
+            this.panel1.Size = new System.Drawing.Size(398, 517);
             this.panel1.TabIndex = 0;
             // 
             // tbSource
@@ -211,7 +256,7 @@ namespace Text_WordDensity_Checker
             this.tbSource.MaxLength = 0;
             this.tbSource.Name = "tbSource";
             this.tbSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.tbSource.Size = new System.Drawing.Size(398, 540);
+            this.tbSource.Size = new System.Drawing.Size(398, 517);
             this.tbSource.TabIndex = 0;
             this.tbSource.Text = "";
             this.tbSource.TextChanged += new System.EventHandler(this.tbSource_TextChanged);
@@ -235,21 +280,23 @@ namespace Text_WordDensity_Checker
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1011, 646);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1011, 623);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1011, 646);
+            this.ClientSize = new System.Drawing.Size(1011, 623);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1027, 685);
+            this.MinimumSize = new System.Drawing.Size(1027, 298);
             this.Name = "Form1";
             this.Text = "Text Word Density Checker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClose_Click);
             this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -281,6 +328,8 @@ namespace Text_WordDensity_Checker
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.Button btnFindClear;
         private System.Windows.Forms.Button btnSource;
+        private System.Windows.Forms.NumericUpDown nudMultiplier;
+        private System.Windows.Forms.Label label1;
     }
 }
 

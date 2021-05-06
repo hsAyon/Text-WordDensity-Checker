@@ -15,7 +15,6 @@ namespace Text_WordDensity_Checker
     public partial class Form1 : Form
     {
         List<List<string>> listOutput = new List<List<string>>();
-        int countPages = 1;
 
         List<List<string>> wordCheck = new List<List<string>>();
         List<List<string>> wordOutput = new List<List<string>>();
@@ -29,6 +28,8 @@ namespace Text_WordDensity_Checker
             InitializeComponent();
             tbSource.Font = new Font ("Calibri", 11);
             tbSource.SelectionFont = new Font("Calibri", 11);
+
+
             //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
         }
@@ -110,12 +111,6 @@ namespace Text_WordDensity_Checker
                 }
             }
         }
-
-        private int parallelCheck(int countAllWords)
-        {
-
-            return 0;
-        }
         
 
         private void btnCheck_Click(object sender, EventArgs e)
@@ -130,14 +125,16 @@ namespace Text_WordDensity_Checker
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
 
+            double multiplier = double.Parse(nudMultiplier.Value.ToString());
 
             dgvOutput.ColumnCount = 4;
 
             dgvOutput.Columns[0].HeaderText = "Word";
             dgvOutput.Columns[1].HeaderText = "Density";
             dgvOutput.Columns[2].HeaderText = "Count";
-            dgvOutput.Columns[3].HeaderText = "Count Diff";
+            dgvOutput.Columns[3].HeaderText = "Count Difference";
 
+            dgvOutput.Columns[3].ValueType = typeof(double);
 
             /*int tempColumnId = dgvOutput.ColumnCount - 1;
             dgvOutput.Columns[tempColumnId].HeaderText = "Difference";
@@ -170,9 +167,9 @@ namespace Text_WordDensity_Checker
 
                 //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
-                if (actualDensity > 1.5 * expectedDensity)
+                if (actualDensity > multiplier * expectedDensity)
                 {
-                    row.Cells[3].Value = (expectedDensity * 1.5 - actualDensity)/100 * (float)countAllWords;
+                    row.Cells[3].Value = (expectedDensity * multiplier - actualDensity)/100 * (float)countAllWords;
                 }
                 else if(actualDensity > expectedDensity)
                 {
@@ -183,8 +180,7 @@ namespace Text_WordDensity_Checker
                     row.Cells[3].Value = (expectedDensity - actualDensity)/100 * (float)countAllWords;
                 }
 
-                //actualDensity > 1.5 * expectedDensity
-                if (actualDensity > 1.5 * expectedDensity)
+                if (actualDensity > multiplier * expectedDensity)
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
@@ -233,35 +229,6 @@ namespace Text_WordDensity_Checker
 
         }
 
-        private void btnClearPrev_Click(object sender, EventArgs e)
-        {
-
-            dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Ascending);
-
-        }
-
-        private void btnClearAll_Click(object sender, EventArgs e)
-        {
-            DialogResult confClear = MessageBox.Show("Are you sure you want to clear all output?", "Clear Confirmation", MessageBoxButtons.YesNo);
-            if (confClear == DialogResult.Yes)
-            {
-                /*tbOutput.Clear();*/
-                countPages = 1;
-
-                listOutput.Clear();
-
-                listOutput.Add(new List<string>());
-                listOutput[0].Add("");
-                listOutput[0].Add("Word");
-
-                //tbSearchString.ReadOnly = false;
-            }
-            else if (confClear == DialogResult.No)
-            {
-                
-            }          
-        }
-
         private void formClose_Click(object sender, FormClosingEventArgs e)
         {
             DialogResult dialog = MessageBox.Show("Do you really want to close the program?", "Exit Confirmation", MessageBoxButtons.YesNo);
@@ -276,11 +243,6 @@ namespace Text_WordDensity_Checker
         }
 
         private void btnFind_Click(object sender, EventArgs e)
-        {
-            findWord();
-        }
-
-        private void findWord()
         {
             tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
 
@@ -313,6 +275,18 @@ namespace Text_WordDensity_Checker
         private void tbSource_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvOutput_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.ValueType == typeof(double))
+            {
+                double a = double.Parse(e.CellValue1.ToString()), b = double.Parse(e.CellValue2.ToString());
+
+                e.SortResult = a.CompareTo(b);
+
+                e.Handled = true;
+            }
         }
     }
 }
