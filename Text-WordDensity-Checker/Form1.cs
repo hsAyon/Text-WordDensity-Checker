@@ -27,7 +27,8 @@ namespace Text_WordDensity_Checker
             listOutput[0].Add("Word");*/
 
             InitializeComponent();
-            
+            tbSource.Font = new Font ("Calibri", 11);
+            tbSource.SelectionFont = new Font("Calibri", 11);
             //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
         }
@@ -115,9 +116,6 @@ namespace Text_WordDensity_Checker
 
             return 0;
         }
-
-        //delegate string SetTextCallback();
-
         
 
         private void btnCheck_Click(object sender, EventArgs e)
@@ -129,34 +127,21 @@ namespace Text_WordDensity_Checker
 
             var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
 
-            int nTerm = 1 + (countPages - 1) * 2; // nth term of arithmatic sequence (a1 = 1, d = 2)
-
-            /*listOutput.Add(new List<string>());
-            listOutput.Add(new List<string>());
-
-            listOutput[nTerm].Add("Page " + countPages);
-            listOutput[nTerm].Add("Count");
-            listOutput[nTerm + 1].Add("");
-            listOutput[nTerm + 1].Add("Density");*/
-            
-            /*DataTable temp = new DataTable();*/
-
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
 
-            /*temp.Columns.Add("word", typeof(string));
-            temp.Columns.Add("density", typeof(float));
-            temp.Columns.Add("difference", typeof(float));*/
 
             dgvOutput.ColumnCount = 4;
 
             dgvOutput.Columns[0].HeaderText = "Word";
             dgvOutput.Columns[1].HeaderText = "Density";
             dgvOutput.Columns[2].HeaderText = "Count";
+            dgvOutput.Columns[3].HeaderText = "Count Diff";
 
-            int tempColumnId = dgvOutput.ColumnCount - 1;
+
+            /*int tempColumnId = dgvOutput.ColumnCount - 1;
             dgvOutput.Columns[tempColumnId].HeaderText = "Difference";
-            dgvOutput.Columns[tempColumnId].ValueType = typeof(float);
+            dgvOutput.Columns[tempColumnId].ValueType = typeof(float);*/
 
             //dgvOutput.Columns[2].Visible = false;
             int rowAddCounter = 0;
@@ -183,7 +168,20 @@ namespace Text_WordDensity_Checker
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
 
-                row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
+                //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
+
+                if (actualDensity > 1.5 * expectedDensity)
+                {
+                    row.Cells[3].Value = (expectedDensity * 1.5 - actualDensity)/100 * (float)countAllWords;
+                }
+                else if(actualDensity > expectedDensity)
+                {
+                    row.Cells[3].Value = 0;
+                }
+                else
+                {
+                    row.Cells[3].Value = (expectedDensity - actualDensity)/100 * (float)countAllWords;
+                }
 
                 //actualDensity > 1.5 * expectedDensity
                 if (actualDensity > 1.5 * expectedDensity)
@@ -225,7 +223,7 @@ namespace Text_WordDensity_Checker
                     rowAddCounter++;
                     if(rowAddCounter == wordCheck.Count)
                     {
-                        dgvOutput.Sort(dgvOutput.Columns[tempColumnId], ListSortDirection.Ascending);
+                        dgvOutput.Sort(dgvOutput.Columns[3], ListSortDirection.Ascending);
                         dgvOutput.ClearSelection();
                     }
                 }));
@@ -237,21 +235,7 @@ namespace Text_WordDensity_Checker
 
         private void btnClearPrev_Click(object sender, EventArgs e)
         {
-            /*DialogResult confClear = MessageBox.Show("Are you sure you want to clear the last output?", "Clear Confirmation", MessageBoxButtons.YesNo);
-            if (confClear == DialogResult.Yes)
-            {
-                if (countPages > 1)
-                {
-                    listOutput.Remove(listOutput.Last());
-                    listOutput.Remove(listOutput.Last());
-                    countPages--;
-                    showOutput();
-                }
-            }
-            else if (confClear == DialogResult.No)
-            {
 
-            }*/
             dgvOutput.Sort(dgvOutput.Columns[2], ListSortDirection.Ascending);
 
         }
@@ -320,81 +304,15 @@ namespace Text_WordDensity_Checker
             tbSource.DeselectAll();
         }
 
-        /*private void findScrollBarColor()
-        {
-            pbScrollbarColors.Image = new Bitmap(pbScrollbarColors.Width, pbScrollbarColors.Height);
-            pbScrollbarColors.BackColor = Color.Transparent;
-        }
-*/
         private void btnFindClear_Click(object sender, EventArgs e)
         {
             tbSource.SelectAll();
             tbSource.SelectionBackColor = Color.White;
         }
 
-        /*
-        SaveFileDialog saveCSV = new SaveFileDialog();
-        saveCSV.Title = "Save CSV";
-            saveCSV.DefaultExt = "csv";
-            
-            if (saveCSV.ShowDialog() == DialogResult.OK)
-            {
-                string finalCSV = "";
-
-                for (int i = 0; i<listOutput[0].Count; i++)
-                {
-                    for (int j = 0; j<listOutput.Count; j++)
-                    {
-                        finalCSV += listOutput[j][i] + ",";
-                    }
-                finalCSV += "\r\n";
-                }
-
-            string filePath = saveCSV.FileName;
-            File.WriteAllText(filePath, finalCSV);
-            }
-        */
-
-
-        /*
-        tbSearchString.Text = tbSearchString.Text.Replace('\u00a0', '\u0020');
-        tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
-
-        string[] searchWords = tbSearchString.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
-
-        int nTerm = 1 + (countPages - 1) * 2; // nth term of arithmatic sequence (a1 = 1, d = 2)
-
-        listOutput.Add(new List<string>());
-            listOutput.Add(new List<string>());
-
-            listOutput[nTerm].Add("Page "+countPages);
-        listOutput[nTerm].Add("Count");
-        listOutput[nTerm + 1].Add("");
-        listOutput[nTerm + 1].Add("Density");
-
-            foreach (var word in searchWords)
-            {
-                if (countPages <= 1)
-                {
-                    listOutput[0].Add(word);
-            }
-
-            string regex = @"\b" + word + @"\b";
-            int countMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase).Count;
-
-            listOutput[nTerm].Add(countMatches.ToString());
-            listOutput[nTerm + 1].Add(((float) countMatches / (float) countAllWords).ToString());
-                    }
-
-        countPages++;
-
-        if (countPages != 1)
+        private void tbSource_TextChanged(object sender, EventArgs e)
         {
-            tbSearchString.ReadOnly = true;
-        }
 
-        showOutput();
-        */
+        }
     }
 }

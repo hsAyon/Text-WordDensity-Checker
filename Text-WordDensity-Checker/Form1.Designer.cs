@@ -70,7 +70,7 @@ namespace Text_WordDensity_Checker
             // 
             this.btnCheck.Location = new System.Drawing.Point(3, 3);
             this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(113, 88);
+            this.btnCheck.Size = new System.Drawing.Size(113, 49);
             this.btnCheck.TabIndex = 0;
             this.btnCheck.Text = "Check";
             this.btnCheck.UseVisualStyleBackColor = true;
@@ -89,7 +89,7 @@ namespace Text_WordDensity_Checker
             // 
             this.btnSelectCSV.Location = new System.Drawing.Point(3, 3);
             this.btnSelectCSV.Name = "btnSelectCSV";
-            this.btnSelectCSV.Size = new System.Drawing.Size(114, 91);
+            this.btnSelectCSV.Size = new System.Drawing.Size(114, 49);
             this.btnSelectCSV.TabIndex = 0;
             this.btnSelectCSV.Text = "Select CSV";
             this.btnSelectCSV.UseVisualStyleBackColor = true;
@@ -214,6 +214,7 @@ namespace Text_WordDensity_Checker
             this.tbSource.Size = new System.Drawing.Size(398, 540);
             this.tbSource.TabIndex = 0;
             this.tbSource.Text = "";
+            this.tbSource.TextChanged += new System.EventHandler(this.tbSource_TextChanged);
             // 
             // tableLayoutPanel1
             // 
