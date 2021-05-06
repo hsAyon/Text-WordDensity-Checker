@@ -21,6 +21,7 @@ namespace Text_WordDensity_Checker
 
         Stack<string> undoList = new Stack<string>();
         Stack<string> redoList = new Stack<string>();
+
         bool undo = false;
 
         public Form1()
@@ -32,7 +33,6 @@ namespace Text_WordDensity_Checker
             InitializeComponent();
             tbSource.Font = new Font ("Calibri", 11);
             tbSource.SelectionFont = new Font("Calibri", 11);
-
             undoList.Push("");
 
             //pbScrollbarColors.BackColor = Color.Transparent;
@@ -315,7 +315,7 @@ namespace Text_WordDensity_Checker
 
             if (e.KeyCode == Keys.Z && (e.Control))
             {
-                if (undoList.Count > 0)
+                if (undoList.Count > 1)
                 {
                     int cursor = tbSource.SelectionStart;
 
@@ -340,7 +340,7 @@ namespace Text_WordDensity_Checker
 
             if (e.KeyCode == Keys.Y && (e.Control))
             {
-                if (redoList.Count > 0)
+                if (redoList.Count > 1)
                 {
                     int cursor = tbSource.SelectionStart;
 

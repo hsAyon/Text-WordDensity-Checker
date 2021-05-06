@@ -257,7 +257,7 @@ namespace Text_WordDensity_Checker
             this.tbSource.Location = new System.Drawing.Point(0, 0);
             this.tbSource.MaxLength = 0;
             this.tbSource.Name = "tbSource";
-            this.tbSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.tbSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.tbSource.Size = new System.Drawing.Size(371, 517);
             this.tbSource.TabIndex = 0;
             this.tbSource.Text = "";
