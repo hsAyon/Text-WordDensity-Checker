@@ -66,9 +66,9 @@ namespace Text_WordDensity_Checker
             this.panel6.Controls.Add(this.nudMultiplier);
             this.panel6.Controls.Add(this.btnCheck);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(609, 3);
+            this.panel6.Location = new System.Drawing.Point(568, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(399, 94);
+            this.panel6.Size = new System.Drawing.Size(373, 94);
             this.panel6.TabIndex = 5;
             // 
             // label1
@@ -124,9 +124,9 @@ namespace Text_WordDensity_Checker
             // 
             this.panel5.Controls.Add(this.btnSelectCSV);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(407, 3);
+            this.panel5.Location = new System.Drawing.Point(380, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(196, 94);
+            this.panel5.Size = new System.Drawing.Size(182, 94);
             this.panel5.TabIndex = 4;
             // 
             // btnSelectCSV
@@ -148,21 +148,22 @@ namespace Text_WordDensity_Checker
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(398, 94);
+            this.panel4.Size = new System.Drawing.Size(371, 94);
             this.panel4.TabIndex = 3;
             // 
             // tbFind
             // 
-            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbFind.Location = new System.Drawing.Point(3, 70);
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(230, 20);
+            this.tbFind.Size = new System.Drawing.Size(203, 20);
             this.tbFind.TabIndex = 9;
+            this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
             // 
             // btnFind
             // 
-            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Location = new System.Drawing.Point(239, 68);
+            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFind.Location = new System.Drawing.Point(212, 68);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(75, 23);
             this.btnFind.TabIndex = 10;
@@ -172,8 +173,8 @@ namespace Text_WordDensity_Checker
             // 
             // btnFindClear
             // 
-            this.btnFindClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindClear.Location = new System.Drawing.Point(320, 68);
+            this.btnFindClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFindClear.Location = new System.Drawing.Point(293, 68);
             this.btnFindClear.Name = "btnFindClear";
             this.btnFindClear.Size = new System.Drawing.Size(75, 23);
             this.btnFindClear.TabIndex = 11;
@@ -195,9 +196,9 @@ namespace Text_WordDensity_Checker
             // 
             this.panel3.Controls.Add(this.dgvOutput);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(609, 103);
+            this.panel3.Location = new System.Drawing.Point(568, 103);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(399, 517);
+            this.panel3.Size = new System.Drawing.Size(373, 517);
             this.panel3.TabIndex = 2;
             // 
             // dgvOutput
@@ -211,7 +212,7 @@ namespace Text_WordDensity_Checker
             this.dgvOutput.Name = "dgvOutput";
             this.dgvOutput.ReadOnly = true;
             this.dgvOutput.RowHeadersVisible = false;
-            this.dgvOutput.Size = new System.Drawing.Size(399, 517);
+            this.dgvOutput.Size = new System.Drawing.Size(373, 517);
             this.dgvOutput.TabIndex = 0;
             this.dgvOutput.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvOutput_SortCompare);
             // 
@@ -219,9 +220,9 @@ namespace Text_WordDensity_Checker
             // 
             this.panel2.Controls.Add(this.dgvWords);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(407, 103);
+            this.panel2.Location = new System.Drawing.Point(380, 103);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(196, 517);
+            this.panel2.Size = new System.Drawing.Size(182, 517);
             this.panel2.TabIndex = 1;
             // 
             // dgvWords
@@ -237,7 +238,7 @@ namespace Text_WordDensity_Checker
             this.dgvWords.Name = "dgvWords";
             this.dgvWords.ReadOnly = true;
             this.dgvWords.RowHeadersVisible = false;
-            this.dgvWords.Size = new System.Drawing.Size(196, 517);
+            this.dgvWords.Size = new System.Drawing.Size(182, 517);
             this.dgvWords.TabIndex = 0;
             // 
             // panel1
@@ -246,7 +247,7 @@ namespace Text_WordDensity_Checker
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 103);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(398, 517);
+            this.panel1.Size = new System.Drawing.Size(371, 517);
             this.panel1.TabIndex = 0;
             // 
             // tbSource
@@ -256,7 +257,7 @@ namespace Text_WordDensity_Checker
             this.tbSource.MaxLength = 0;
             this.tbSource.Name = "tbSource";
             this.tbSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.tbSource.Size = new System.Drawing.Size(398, 517);
+            this.tbSource.Size = new System.Drawing.Size(371, 517);
             this.tbSource.TabIndex = 0;
             this.tbSource.Text = "";
             this.tbSource.TextChanged += new System.EventHandler(this.tbSource_TextChanged);
@@ -281,17 +282,17 @@ namespace Text_WordDensity_Checker
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1011, 623);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 623);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1011, 623);
+            this.ClientSize = new System.Drawing.Size(944, 623);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1027, 298);
+            this.MinimumSize = new System.Drawing.Size(960, 298);
             this.Name = "Form1";
             this.Text = "Text Word Density Checker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClose_Click);

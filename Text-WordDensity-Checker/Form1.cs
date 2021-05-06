@@ -19,6 +19,9 @@ namespace Text_WordDensity_Checker
         List<List<string>> wordCheck = new List<List<string>>();
         List<List<string>> wordOutput = new List<List<string>>();
 
+        Stack<string> undoList = new Stack<string>();
+        Stack<string> redoList = new Stack<string>();
+
         public Form1()
         {
             /*listOutput.Add(new List<string>());
@@ -274,7 +277,7 @@ namespace Text_WordDensity_Checker
 
         private void tbSource_TextChanged(object sender, EventArgs e)
         {
-
+            undoList.Push(tbSource.Text);
         }
 
         private void dgvOutput_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -296,8 +299,29 @@ namespace Text_WordDensity_Checker
 
             if (ctrlV || shiftIns)
             {
+                tbSource.SelectedText = string.Empty;
                 tbSource.Text += (string)Clipboard.GetData("Text");
                 e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.Z && (e.Control))
+            {
+                redoList.Push(tbSource.Text);
+                tbSource.Text = undoList.Pop();
+            }
+
+            if (e.KeyCode == Keys.Y && (e.Control))
+            {
+                undoList.Push(tbSource.Text);
+                tbSource.Text = redoList.Pop();
+            }
+        }
+
+        private void tbFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnFind.PerformClick();
             }
         }
     }
