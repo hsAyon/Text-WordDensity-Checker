@@ -21,6 +21,7 @@ namespace Text_WordDensity_Checker
 
         Stack<string> undoList = new Stack<string>();
         Stack<string> redoList = new Stack<string>();
+        bool undo = false;
 
         public Form1()
         {
@@ -32,6 +33,7 @@ namespace Text_WordDensity_Checker
             tbSource.Font = new Font ("Calibri", 11);
             tbSource.SelectionFont = new Font("Calibri", 11);
 
+            undoList.Push("");
 
             //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
@@ -277,7 +279,14 @@ namespace Text_WordDensity_Checker
 
         private void tbSource_TextChanged(object sender, EventArgs e)
         {
-            undoList.Push(tbSource.Text);
+            if (undo == false)
+            {
+                undoList.Push(tbSource.Text);
+            }
+            else
+            {
+
+            }
         }
 
         private void dgvOutput_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -306,14 +315,50 @@ namespace Text_WordDensity_Checker
 
             if (e.KeyCode == Keys.Z && (e.Control))
             {
-                redoList.Push(tbSource.Text);
-                tbSource.Text = undoList.Pop();
+                if (undoList.Count > 0)
+                {
+                    int cursor = tbSource.SelectionStart;
+
+                    undo = true;
+
+                    string temp = undoList.Pop();
+                    redoList.Push(temp);
+                    tbSource.Text = undoList.First();
+
+                    undo = false;
+
+                    if (cursor < tbSource.TextLength)
+                    {
+                        tbSource.SelectionStart = cursor;
+                    }
+                    else
+                    {
+                        tbSource.SelectionStart = tbSource.TextLength;
+                    }
+                }
             }
 
             if (e.KeyCode == Keys.Y && (e.Control))
             {
-                undoList.Push(tbSource.Text);
-                tbSource.Text = redoList.Pop();
+                if (redoList.Count > 0)
+                {
+                    int cursor = tbSource.SelectionStart;
+
+                    undo = true;
+                    string temp = redoList.Pop();
+                    undoList.Push(temp);
+                    tbSource.Text = undoList.First();
+                    undo = false;
+
+                    if (cursor < tbSource.TextLength)
+                    {
+                        tbSource.SelectionStart = cursor;
+                    }
+                    else
+                    {
+                        tbSource.SelectionStart = tbSource.TextLength;
+                    }
+                }
             }
         }
 
@@ -322,6 +367,18 @@ namespace Text_WordDensity_Checker
             if (e.KeyCode == Keys.Enter)
             {
                 btnFind.PerformClick();
+
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void nudMultiplier_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnCheck.PerformClick();
+
+                e.SuppressKeyPress = true;
             }
         }
     }

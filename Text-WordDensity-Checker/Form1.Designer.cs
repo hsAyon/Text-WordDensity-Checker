@@ -109,6 +109,7 @@ namespace Text_WordDensity_Checker
             0,
             0,
             65536});
+            this.nudMultiplier.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nudMultiplier_KeyDown);
             // 
             // btnCheck
             // 
