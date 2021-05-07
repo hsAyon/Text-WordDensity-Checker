@@ -145,12 +145,18 @@ namespace Text_WordDensity_Checker
 
             double multiplier = double.Parse(nudMultiplier.Value.ToString());
 
-            dgvOutput.ColumnCount = 4;
+            dgvOutput.ColumnCount = 5;
 
             dgvOutput.Columns[0].HeaderText = "Word";
             dgvOutput.Columns[1].HeaderText = "Density";
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
+            
+            dgvOutput.Columns[4].HeaderText = "#";
+            dgvOutput.Columns[4].DisplayIndex = 0;
+            dgvOutput.Columns[4].ValueType = typeof(int);
+
+            dgvOutput.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
             dgvOutput.Columns[3].ValueType = typeof(double);
 
@@ -182,6 +188,7 @@ namespace Text_WordDensity_Checker
                 row.Cells[0].Value = wordOutput[i][0];
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
+                row.Cells[4].Value = i+1;
 
                 //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
@@ -446,7 +453,7 @@ namespace Text_WordDensity_Checker
             double multiplier = double.Parse(nudMultiplier.Value.ToString());
             int rowAddCounter = 0;
 
-            dgvOutput.ColumnCount = 4;
+            dgvOutput.ColumnCount = 5;
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
@@ -455,6 +462,12 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[1].HeaderText = "Density";
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
+
+            dgvOutput.Columns[4].HeaderText = "#";
+            dgvOutput.Columns[4].DisplayIndex = 0;
+            dgvOutput.Columns[4].ValueType = typeof(int);
+
+            dgvOutput.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
             dgvOutput.Columns[3].ValueType = typeof(double);
 
@@ -471,6 +484,8 @@ namespace Text_WordDensity_Checker
                 row.Cells[0].Value = wordOutput[i][0];
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
+
+                row.Cells[4].Value = i;
 
                 //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
