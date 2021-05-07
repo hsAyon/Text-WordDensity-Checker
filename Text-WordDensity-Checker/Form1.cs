@@ -156,6 +156,9 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[4].DisplayIndex = 0;
             dgvOutput.Columns[4].ValueType = typeof(int);
 
+            dgvOutput.Columns[1].ValueType = typeof(double);
+            dgvOutput.Columns[2].ValueType = typeof(int);
+
             dgvOutput.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
             dgvOutput.Columns[3].ValueType = typeof(double);
@@ -329,6 +332,15 @@ namespace Text_WordDensity_Checker
             if (e.Column.ValueType == typeof(double))
             {
                 double a = double.Parse(e.CellValue1.ToString()), b = double.Parse(e.CellValue2.ToString());
+
+                e.SortResult = a.CompareTo(b);
+
+                e.Handled = true;
+            }
+
+            if (e.Column.ValueType == typeof(int))
+            {
+                int a = int.Parse(e.CellValue1.ToString()), b = int.Parse(e.CellValue2.ToString());
 
                 e.SortResult = a.CompareTo(b);
 
