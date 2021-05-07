@@ -463,6 +463,10 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
 
+            dgvOutput.Columns[1].ValueType = typeof(double);
+            dgvOutput.Columns[2].ValueType = typeof(int);
+
+
             dgvOutput.Columns[4].HeaderText = "#";
             dgvOutput.Columns[4].DisplayIndex = 0;
             dgvOutput.Columns[4].ValueType = typeof(int);
