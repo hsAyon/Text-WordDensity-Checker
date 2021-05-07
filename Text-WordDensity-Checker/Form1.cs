@@ -220,7 +220,7 @@ namespace Text_WordDensity_Checker
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
                         cell.Style.ForeColor = Color.Green;
                     }
                 } 
@@ -236,7 +236,7 @@ namespace Text_WordDensity_Checker
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
                         cell.Style.ForeColor = Color.Orange;
                     }
                 }
@@ -530,7 +530,7 @@ namespace Text_WordDensity_Checker
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
                         cell.Style.ForeColor = Color.Green;
                     }
                 }
@@ -546,7 +546,7 @@ namespace Text_WordDensity_Checker
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
                         cell.Style.ForeColor = Color.Orange;
                     }
                 }
