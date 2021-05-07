@@ -297,6 +297,7 @@ namespace Text_WordDensity_Checker
             this.Name = "Form1";
             this.Text = "Text Word Density Checker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClose_Click);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).EndInit();

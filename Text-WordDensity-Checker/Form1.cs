@@ -9,6 +9,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.Windows.Markup;
+using System.Xml;
 
 namespace Text_WordDensity_Checker
 {
@@ -22,7 +25,11 @@ namespace Text_WordDensity_Checker
         Stack<string> undoList = new Stack<string>();
         Stack<string> redoList = new Stack<string>();
 
+        int countAllWords;
+
         bool undo = false;
+
+        saveInfo saveData;
 
         public Form1()
         {
@@ -34,7 +41,9 @@ namespace Text_WordDensity_Checker
             tbSource.Font = new Font ("Calibri", 11);
             tbSource.SelectionFont = new Font("Calibri", 11);
             undoList.Push("");
+            countAllWords = 0;
 
+            saveData = new saveInfo();
             //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
         }
@@ -95,25 +104,29 @@ namespace Text_WordDensity_Checker
                     }
                 }
 
-                wordCheck = wordCheckTemp;
                 wordOutput = wordOutputTemp;
+                wordCheck = wordCheckTemp;
+                loadWords();
+            }
+        }
 
-                dgvWords.Rows.Clear();
-                dgvWords.Refresh();
+        private void loadWords()
+        {
+            dgvWords.Rows.Clear();
+            dgvWords.Refresh();
 
-                dgvWords.ColumnCount = 2;
-                for (int r = 0; r < wordCheck.Count; r++)
+            dgvWords.ColumnCount = 2;
+            for (int r = 0; r < wordCheck.Count; r++)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(this.dgvWords);
+
+                for (int c = 0; c < 2; c++)
                 {
-                    DataGridViewRow row = new DataGridViewRow();
-                    row.CreateCells(this.dgvWords);
-
-                    for (int c = 0; c < 2; c++)
-                    {
-                        row.Cells[c].Value = wordCheck[r][c];
-                    }
-
-                    this.dgvWords.Rows.Add(row);
+                    row.Cells[c].Value = wordCheck[r][c];
                 }
+
+                this.dgvWords.Rows.Add(row);
             }
         }
         
@@ -125,7 +138,7 @@ namespace Text_WordDensity_Checker
 
             var source = tbSource.Text;
 
-            var countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
+            countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
@@ -239,6 +252,21 @@ namespace Text_WordDensity_Checker
             DialogResult dialog = MessageBox.Show("Do you really want to close the program?", "Exit Confirmation", MessageBoxButtons.YesNo);
             if (dialog == DialogResult.Yes)
             {
+                saveData.source = tbSource.Text;
+                saveData.countAllWords = countAllWords;
+                saveData.multiplier = double.Parse(nudMultiplier.Value.ToString());
+                saveData.words = wordCheck;
+                saveData.output = wordOutput;
+                //saveData.dgvOut = dgvOutput;
+                saveData.find = tbFind.Text;
+
+
+                XmlSerializer serializer = new XmlSerializer(typeof(saveInfo));
+                TextWriter textWriter = new StreamWriter(Application.StartupPath + @"\saveData.xml");
+                serializer.Serialize(textWriter, saveData);
+                textWriter.Close();
+
+
                 Application.ExitThread();
             }
             else if (dialog == DialogResult.No)
@@ -381,5 +409,139 @@ namespace Text_WordDensity_Checker
                 e.SuppressKeyPress = true;
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (File.Exists(Application.StartupPath + @"\saveData.xml"))
+            {
+                saveInfo loadData;
+
+                XmlSerializer xs = new XmlSerializer(typeof(saveInfo));
+                using (FileStream fs = new FileStream(Application.StartupPath + @"\saveData.xml", FileMode.Open))
+                {
+                    loadData = xs.Deserialize(fs) as saveInfo;
+                }
+
+                if (loadData != null)
+                {
+                    tbSource.Text = loadData.source;
+                    nudMultiplier.Value = decimal.Parse(loadData.multiplier.ToString());
+                    wordCheck = loadData.words;
+                    wordOutput = loadData.output;
+                    countAllWords = loadData.countAllWords;
+
+                    loadWords();
+                    loadOutput();
+
+                    //dgvOutput = loadData.dgvOut;
+                    tbFind.Text = loadData.find;
+
+                }
+
+            }
+        }
+
+        private void loadOutput()
+        {
+            double multiplier = double.Parse(nudMultiplier.Value.ToString());
+            int rowAddCounter = 0;
+
+            dgvOutput.ColumnCount = 4;
+
+            dgvOutput.Rows.Clear();
+            dgvOutput.Refresh();
+
+            dgvOutput.Columns[0].HeaderText = "Word";
+            dgvOutput.Columns[1].HeaderText = "Density";
+            dgvOutput.Columns[2].HeaderText = "Count";
+            dgvOutput.Columns[3].HeaderText = "Count Difference";
+
+            dgvOutput.Columns[3].ValueType = typeof(double);
+
+            Parallel.For(0, wordCheck.Count, i =>
+            {
+                float actualDensity = float.Parse(wordOutput[i][1]);
+                float expectedDensity = float.Parse(wordCheck[i][1]);
+
+                DataGridViewRow row = new DataGridViewRow();
+
+                row.CreateCells(this.dgvOutput);
+                row.DefaultCellStyle = dgvOutput.DefaultCellStyle;
+
+                row.Cells[0].Value = wordOutput[i][0];
+                row.Cells[1].Value = float.Parse(wordOutput[i][1]);
+                row.Cells[2].Value = wordOutput[i][2];
+
+                //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
+
+                if (actualDensity > multiplier * expectedDensity)
+                {
+                    row.Cells[3].Value = (expectedDensity * multiplier - actualDensity) / 100 * (float)countAllWords;
+                }
+                else if (actualDensity > expectedDensity)
+                {
+                    row.Cells[3].Value = 0;
+                }
+                else
+                {
+                    row.Cells[3].Value = (expectedDensity - actualDensity) / 100 * (float)countAllWords;
+                }
+
+                if (actualDensity > multiplier * expectedDensity)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
+                        cell.Style.ForeColor = Color.Red;
+                    }
+                }
+                else if (actualDensity > expectedDensity)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.ForeColor = Color.Green;
+                    }
+                }
+                else if (actualDensity <= 0)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.ForeColor = Color.Black;
+                    }
+                }
+                else
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Regular);
+                        cell.Style.ForeColor = Color.Orange;
+                    }
+                }
+
+                //dgvOutput.Invoke(new Action(() => { dgvOutput.Rows.Add(row); }));
+                dgvOutput.BeginInvoke(new Action(() => {
+                    dgvOutput.Rows.Add(row);
+                    rowAddCounter++;
+                    if (rowAddCounter == wordCheck.Count)
+                    {
+                        dgvOutput.Sort(dgvOutput.Columns[3], ListSortDirection.Ascending);
+                        dgvOutput.ClearSelection();
+                    }
+                }));
+            });
+        }
+    }
+
+    public class saveInfo
+    {
+        public string source { get; set; }
+        public int countAllWords { get; set; }
+        public double multiplier { get; set; }
+        public List<List<string>> words { get; set; }
+        public List<List<string>> output { get; set; }
+        //public DataGridView dgvOut { get; set; }
+        public string find { get; set; }
     }
 }
