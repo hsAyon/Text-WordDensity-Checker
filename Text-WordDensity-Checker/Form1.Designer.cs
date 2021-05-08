@@ -34,7 +34,6 @@ namespace Text_WordDensity_Checker
             this.label1 = new System.Windows.Forms.Label();
             this.nudMultiplier = new System.Windows.Forms.NumericUpDown();
             this.btnCheck = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.btnSelectCSV = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tbFind = new System.Windows.Forms.TextBox();
@@ -43,32 +42,28 @@ namespace Text_WordDensity_Checker
             this.btnSource = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgvOutput = new System.Windows.Forms.DataGridView();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.dgvWords = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbSource = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).BeginInit();
-            this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.btnSelectCSV);
             this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.nudMultiplier);
             this.panel6.Controls.Add(this.btnCheck);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(568, 3);
+            this.panel6.Location = new System.Drawing.Point(574, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(373, 94);
+            this.panel6.Size = new System.Drawing.Size(367, 94);
             this.panel6.TabIndex = 5;
             // 
             // label1
@@ -113,7 +108,7 @@ namespace Text_WordDensity_Checker
             // 
             // btnCheck
             // 
-            this.btnCheck.Location = new System.Drawing.Point(3, 3);
+            this.btnCheck.Location = new System.Drawing.Point(126, 3);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(113, 49);
             this.btnCheck.TabIndex = 0;
@@ -121,18 +116,9 @@ namespace Text_WordDensity_Checker
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.btnSelectCSV);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(380, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(182, 94);
-            this.panel5.TabIndex = 4;
-            // 
             // btnSelectCSV
             // 
-            this.btnSelectCSV.Location = new System.Drawing.Point(3, 3);
+            this.btnSelectCSV.Location = new System.Drawing.Point(6, 3);
             this.btnSelectCSV.Name = "btnSelectCSV";
             this.btnSelectCSV.Size = new System.Drawing.Size(114, 49);
             this.btnSelectCSV.TabIndex = 0;
@@ -149,22 +135,23 @@ namespace Text_WordDensity_Checker
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(371, 94);
+            this.panel4.Size = new System.Drawing.Size(565, 94);
             this.panel4.TabIndex = 3;
             // 
             // tbFind
             // 
             this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbFind.Location = new System.Drawing.Point(3, 70);
+            this.tbFind.Font = new System.Drawing.Font("Calibri", 11F);
+            this.tbFind.Location = new System.Drawing.Point(3, 67);
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(203, 20);
+            this.tbFind.Size = new System.Drawing.Size(397, 25);
             this.tbFind.TabIndex = 9;
             this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
             // 
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFind.Location = new System.Drawing.Point(212, 68);
+            this.btnFind.Location = new System.Drawing.Point(406, 67);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(75, 23);
             this.btnFind.TabIndex = 10;
@@ -175,7 +162,7 @@ namespace Text_WordDensity_Checker
             // btnFindClear
             // 
             this.btnFindClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFindClear.Location = new System.Drawing.Point(293, 68);
+            this.btnFindClear.Location = new System.Drawing.Point(487, 68);
             this.btnFindClear.Name = "btnFindClear";
             this.btnFindClear.Size = new System.Drawing.Size(75, 23);
             this.btnFindClear.TabIndex = 11;
@@ -197,9 +184,9 @@ namespace Text_WordDensity_Checker
             // 
             this.panel3.Controls.Add(this.dgvOutput);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(568, 103);
+            this.panel3.Location = new System.Drawing.Point(574, 103);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(373, 517);
+            this.panel3.Size = new System.Drawing.Size(367, 517);
             this.panel3.TabIndex = 2;
             // 
             // dgvOutput
@@ -213,34 +200,9 @@ namespace Text_WordDensity_Checker
             this.dgvOutput.Name = "dgvOutput";
             this.dgvOutput.ReadOnly = true;
             this.dgvOutput.RowHeadersVisible = false;
-            this.dgvOutput.Size = new System.Drawing.Size(373, 517);
+            this.dgvOutput.Size = new System.Drawing.Size(367, 517);
             this.dgvOutput.TabIndex = 0;
             this.dgvOutput.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvOutput_SortCompare);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dgvWords);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(380, 103);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(182, 517);
-            this.panel2.TabIndex = 1;
-            // 
-            // dgvWords
-            // 
-            this.dgvWords.AllowUserToAddRows = false;
-            this.dgvWords.AllowUserToDeleteRows = false;
-            this.dgvWords.AllowUserToResizeRows = false;
-            this.dgvWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvWords.ColumnHeadersVisible = false;
-            this.dgvWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvWords.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvWords.Location = new System.Drawing.Point(0, 0);
-            this.dgvWords.Name = "dgvWords";
-            this.dgvWords.ReadOnly = true;
-            this.dgvWords.RowHeadersVisible = false;
-            this.dgvWords.Size = new System.Drawing.Size(182, 517);
-            this.dgvWords.TabIndex = 0;
             // 
             // panel1
             // 
@@ -248,17 +210,18 @@ namespace Text_WordDensity_Checker
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 103);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(371, 517);
+            this.panel1.Size = new System.Drawing.Size(565, 517);
             this.panel1.TabIndex = 0;
             // 
             // tbSource
             // 
             this.tbSource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbSource.Font = new System.Drawing.Font("Calibri", 11F);
             this.tbSource.Location = new System.Drawing.Point(0, 0);
             this.tbSource.MaxLength = 0;
             this.tbSource.Name = "tbSource";
             this.tbSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.tbSource.Size = new System.Drawing.Size(371, 517);
+            this.tbSource.Size = new System.Drawing.Size(565, 517);
             this.tbSource.TabIndex = 0;
             this.tbSource.Text = "";
             this.tbSource.TextChanged += new System.EventHandler(this.tbSource_TextChanged);
@@ -266,16 +229,14 @@ namespace Text_WordDensity_Checker
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.59322F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.40678F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel6, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel6, 1, 0);
             this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -301,13 +262,10 @@ namespace Text_WordDensity_Checker
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).EndInit();
-            this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).EndInit();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWords)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -318,13 +276,10 @@ namespace Text_WordDensity_Checker
 
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnCheck;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnSelectCSV;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dgvOutput;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.DataGridView dgvWords;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox tbSource;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

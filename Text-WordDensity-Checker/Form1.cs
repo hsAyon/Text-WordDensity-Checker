@@ -106,30 +106,9 @@ namespace Text_WordDensity_Checker
 
                 wordOutput = wordOutputTemp;
                 wordCheck = wordCheckTemp;
-                loadWords();
             }
         }
 
-        private void loadWords()
-        {
-            dgvWords.Rows.Clear();
-            dgvWords.Refresh();
-
-            dgvWords.ColumnCount = 2;
-            for (int r = 0; r < wordCheck.Count; r++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-                row.CreateCells(this.dgvWords);
-
-                for (int c = 0; c < 2; c++)
-                {
-                    row.Cells[c].Value = wordCheck[r][c];
-                }
-
-                this.dgvWords.Rows.Add(row);
-            }
-        }
-        
 
         private void btnCheck_Click(object sender, EventArgs e)
         {
@@ -145,10 +124,10 @@ namespace Text_WordDensity_Checker
 
             double multiplier = double.Parse(nudMultiplier.Value.ToString());
 
-            dgvOutput.ColumnCount = 5;
+            dgvOutput.ColumnCount = 6;
 
             dgvOutput.Columns[0].HeaderText = "Word";
-            dgvOutput.Columns[1].HeaderText = "Density";
+            dgvOutput.Columns[1].HeaderText = "Actual Density";
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
             
@@ -163,6 +142,10 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Columns[3].ValueType = typeof(double);
 
+            dgvOutput.Columns[5].ValueType = typeof(double);
+            dgvOutput.Columns[5].HeaderText = "Given Density";
+            dgvOutput.Columns[5].DisplayIndex = 2;
+
             /*int tempColumnId = dgvOutput.ColumnCount - 1;
             dgvOutput.Columns[tempColumnId].HeaderText = "Difference";
             dgvOutput.Columns[tempColumnId].ValueType = typeof(float);*/
@@ -172,7 +155,6 @@ namespace Text_WordDensity_Checker
 
             Parallel.For(0, wordCheck.Count, i =>
             {
-
                 string regex = @"\b" + wordCheck[i][0] + @"\b";
                 int countMatches = Regex.Matches(source, regex, RegexOptions.IgnoreCase).Count;
                 // | RegexOptions.Compiled
@@ -192,6 +174,7 @@ namespace Text_WordDensity_Checker
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
                 row.Cells[4].Value = i+1;
+                row.Cells[5].Value = wordCheck[i][1];
 
                 //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
@@ -449,7 +432,6 @@ namespace Text_WordDensity_Checker
                     wordOutput = loadData.output;
                     countAllWords = loadData.countAllWords;
 
-                    loadWords();
                     loadOutput();
 
                     //dgvOutput = loadData.dgvOut;
@@ -465,13 +447,13 @@ namespace Text_WordDensity_Checker
             double multiplier = double.Parse(nudMultiplier.Value.ToString());
             int rowAddCounter = 0;
 
-            dgvOutput.ColumnCount = 5;
+            dgvOutput.ColumnCount = 6;
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
 
             dgvOutput.Columns[0].HeaderText = "Word";
-            dgvOutput.Columns[1].HeaderText = "Density";
+            dgvOutput.Columns[1].HeaderText = "Actual Density";
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
 
@@ -487,6 +469,10 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Columns[3].ValueType = typeof(double);
 
+            dgvOutput.Columns[5].ValueType = typeof(double);
+            dgvOutput.Columns[5].HeaderText = "Given Density";
+            dgvOutput.Columns[5].DisplayIndex = 2;
+
             Parallel.For(0, wordCheck.Count, i =>
             {
                 float actualDensity = float.Parse(wordOutput[i][1]);
@@ -500,6 +486,8 @@ namespace Text_WordDensity_Checker
                 row.Cells[0].Value = wordOutput[i][0];
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
+                row.Cells[5].Value = wordCheck[i][1];
+
 
                 row.Cells[4].Value = i;
 
