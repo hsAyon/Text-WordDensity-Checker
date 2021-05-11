@@ -143,7 +143,7 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[3].ValueType = typeof(double);
 
             dgvOutput.Columns[5].ValueType = typeof(double);
-            dgvOutput.Columns[5].HeaderText = "Given Density";
+            dgvOutput.Columns[5].HeaderText = "Input Density";
             dgvOutput.Columns[5].DisplayIndex = 2;
 
             /*int tempColumnId = dgvOutput.ColumnCount - 1;
@@ -470,7 +470,7 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[3].ValueType = typeof(double);
 
             dgvOutput.Columns[5].ValueType = typeof(double);
-            dgvOutput.Columns[5].HeaderText = "Given Density";
+            dgvOutput.Columns[5].HeaderText = "Input Density";
             dgvOutput.Columns[5].DisplayIndex = 2;
 
             Parallel.For(0, wordCheck.Count, i =>
