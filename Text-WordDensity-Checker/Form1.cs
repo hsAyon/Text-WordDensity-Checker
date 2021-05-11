@@ -339,7 +339,7 @@ namespace Text_WordDensity_Checker
             if (ctrlV || shiftIns)
             {
                 tbSource.SelectedText = string.Empty;
-                tbSource.Text += (string)Clipboard.GetData("Text");
+                tbSource.SelectedText = (string)Clipboard.GetData("Text");
                 e.Handled = true;
             }
 
