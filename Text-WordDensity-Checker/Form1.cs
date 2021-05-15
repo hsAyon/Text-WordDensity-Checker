@@ -127,6 +127,8 @@ namespace Text_WordDensity_Checker
             dgvOutput.ColumnCount = 6;
 
             dgvOutput.Columns[0].HeaderText = "Word";
+            dgvOutput.Columns[0].Name = "word";
+
             dgvOutput.Columns[1].HeaderText = "Actual Density";
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
@@ -452,6 +454,7 @@ namespace Text_WordDensity_Checker
             dgvOutput.Refresh();
 
             dgvOutput.Columns[0].HeaderText = "Word";
+            dgvOutput.Columns[0].Name = "word";
             dgvOutput.Columns[1].HeaderText = "Actual Density";
             dgvOutput.Columns[2].HeaderText = "Count";
             dgvOutput.Columns[3].HeaderText = "Count Difference";
@@ -549,6 +552,57 @@ namespace Text_WordDensity_Checker
                     }
                 }));
             });
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFilter.Text))
+            {
+                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row => {
+                    dgvOutput.BeginInvoke(new Action(() =>
+                    {
+                        row.Visible = true;
+                    }));
+                });
+            }
+            else if (cbExact.Checked)
+            {
+                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row => {
+                    if (row.Cells[0].Value.ToString().ToLower().Equals(tbFilter.Text.ToLower()))
+                    {
+                        dgvOutput.BeginInvoke(new Action(() =>
+                        {
+                            row.Visible = true;
+                        }));
+                    }
+                    else
+                    {
+                        dgvOutput.BeginInvoke(new Action(() =>
+                        {
+                            row.Visible = false;
+                        }));
+                    }
+                });
+            } 
+            else
+            {
+                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row => {
+                    if (row.Cells[0].Value.ToString().ToLower().Contains(tbFilter.Text.ToLower()))
+                    {
+                        dgvOutput.BeginInvoke(new Action(() =>
+                        {
+                            row.Visible = true;
+                        }));
+                    }
+                    else
+                    {
+                        dgvOutput.BeginInvoke(new Action(() =>
+                        {
+                            row.Visible = false;
+                        }));
+                    }
+                });
+            }
         }
     }
 
