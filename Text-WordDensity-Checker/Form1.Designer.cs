@@ -31,6 +31,7 @@ namespace Text_WordDensity_Checker
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel6 = new System.Windows.Forms.Panel();
+            this.cbExact = new System.Windows.Forms.CheckBox();
             this.btnFilter = new System.Windows.Forms.Button();
             this.tbFilter = new System.Windows.Forms.TextBox();
             this.btnSelectCSV = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@ namespace Text_WordDensity_Checker
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbSource = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbExact = new System.Windows.Forms.CheckBox();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).BeginInit();
             this.panel4.SuspendLayout();
@@ -72,10 +72,21 @@ namespace Text_WordDensity_Checker
             this.panel6.Size = new System.Drawing.Size(367, 104);
             this.panel6.TabIndex = 5;
             // 
+            // cbExact
+            // 
+            this.cbExact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbExact.AutoSize = true;
+            this.cbExact.Location = new System.Drawing.Point(326, 80);
+            this.cbExact.Name = "cbExact";
+            this.cbExact.Size = new System.Drawing.Size(42, 17);
+            this.cbExact.TabIndex = 14;
+            this.cbExact.Text = "EM";
+            this.cbExact.UseVisualStyleBackColor = true;
+            // 
             // btnFilter
             // 
             this.btnFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFilter.Location = new System.Drawing.Point(191, 78);
+            this.btnFilter.Location = new System.Drawing.Point(245, 78);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(75, 23);
             this.btnFilter.TabIndex = 12;
@@ -89,7 +100,7 @@ namespace Text_WordDensity_Checker
             this.tbFilter.Font = new System.Drawing.Font("Calibri", 11F);
             this.tbFilter.Location = new System.Drawing.Point(6, 77);
             this.tbFilter.Name = "tbFilter";
-            this.tbFilter.Size = new System.Drawing.Size(182, 25);
+            this.tbFilter.Size = new System.Drawing.Size(233, 25);
             this.tbFilter.TabIndex = 12;
             // 
             // btnSelectCSV
@@ -131,7 +142,7 @@ namespace Text_WordDensity_Checker
             0,
             0});
             this.nudMultiplier.Name = "nudMultiplier";
-            this.nudMultiplier.Size = new System.Drawing.Size(120, 20);
+            this.nudMultiplier.Size = new System.Drawing.Size(141, 20);
             this.nudMultiplier.TabIndex = 1;
             this.nudMultiplier.Value = new decimal(new int[] {
             12,
@@ -270,17 +281,6 @@ namespace Text_WordDensity_Checker
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 623);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // cbExact
-            // 
-            this.cbExact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cbExact.AutoSize = true;
-            this.cbExact.Location = new System.Drawing.Point(272, 82);
-            this.cbExact.Name = "cbExact";
-            this.cbExact.Size = new System.Drawing.Size(86, 17);
-            this.cbExact.TabIndex = 14;
-            this.cbExact.Text = "Exact Match";
-            this.cbExact.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

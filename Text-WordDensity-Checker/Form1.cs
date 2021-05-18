@@ -89,7 +89,7 @@ namespace Text_WordDensity_Checker
 
                         values[0].Replace('\u00a0', '\u0020');
                         values[1].Replace('\u00a0', '\u0020');
-
+                        
                         
 
                         wordOutputTemp.Add(new List<string>());
@@ -99,6 +99,8 @@ namespace Text_WordDensity_Checker
 
                         wordCheckTemp[i].Add(values[0]);
                         wordCheckTemp[i].Add(values[1].Replace("%",""));
+                        wordCheckTemp[i].Add(values[2].Replace("%", ""));
+                        wordCheckTemp[i].Add(values[3]);
 
                         i++;
                     }
@@ -124,7 +126,7 @@ namespace Text_WordDensity_Checker
 
             double multiplier = double.Parse(nudMultiplier.Value.ToString());
 
-            dgvOutput.ColumnCount = 6;
+            dgvOutput.ColumnCount = 8;
 
             dgvOutput.Columns[0].HeaderText = "Word";
             dgvOutput.Columns[0].Name = "word";
@@ -147,6 +149,14 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[5].ValueType = typeof(double);
             dgvOutput.Columns[5].HeaderText = "Input Density";
             dgvOutput.Columns[5].DisplayIndex = 2;
+
+            dgvOutput.Columns[6].ValueType = typeof(double);
+            dgvOutput.Columns[6].HeaderText = "Max Density";
+            dgvOutput.Columns[6].DisplayIndex = 3;
+
+            dgvOutput.Columns[7].ValueType = typeof(double);
+            dgvOutput.Columns[7].HeaderText = "Correlation";
+            dgvOutput.Columns[7].DisplayIndex = 4;
 
             /*int tempColumnId = dgvOutput.ColumnCount - 1;
             dgvOutput.Columns[tempColumnId].HeaderText = "Difference";
@@ -177,6 +187,8 @@ namespace Text_WordDensity_Checker
                 row.Cells[2].Value = wordOutput[i][2];
                 row.Cells[4].Value = i+1;
                 row.Cells[5].Value = wordCheck[i][1];
+                row.Cells[6].Value = wordCheck[i][2];
+                row.Cells[7].Value = wordCheck[i][3];
 
                 //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
@@ -448,7 +460,7 @@ namespace Text_WordDensity_Checker
             double multiplier = double.Parse(nudMultiplier.Value.ToString());
             int rowAddCounter = 0;
 
-            dgvOutput.ColumnCount = 6;
+            dgvOutput.ColumnCount = 8;
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
@@ -475,6 +487,14 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[5].HeaderText = "Input Density";
             dgvOutput.Columns[5].DisplayIndex = 2;
 
+            dgvOutput.Columns[6].ValueType = typeof(double);
+            dgvOutput.Columns[6].HeaderText = "Max Density";
+            dgvOutput.Columns[6].DisplayIndex = 3;
+
+            dgvOutput.Columns[7].ValueType = typeof(double);
+            dgvOutput.Columns[7].HeaderText = "Correlation";
+            dgvOutput.Columns[7].DisplayIndex = 4;
+
             Parallel.For(0, wordCheck.Count, i =>
             {
                 float actualDensity = float.Parse(wordOutput[i][1]);
@@ -489,6 +509,8 @@ namespace Text_WordDensity_Checker
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
                 row.Cells[5].Value = wordCheck[i][1];
+                row.Cells[6].Value = wordCheck[i][2];
+                row.Cells[7].Value = wordCheck[i][3];
 
 
                 row.Cells[4].Value = i;
