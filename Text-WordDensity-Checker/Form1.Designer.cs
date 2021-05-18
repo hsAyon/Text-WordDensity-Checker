@@ -76,7 +76,7 @@ namespace Text_WordDensity_Checker
             // 
             this.cbExact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbExact.AutoSize = true;
-            this.cbExact.Location = new System.Drawing.Point(326, 80);
+            this.cbExact.Location = new System.Drawing.Point(326, 82);
             this.cbExact.Name = "cbExact";
             this.cbExact.Size = new System.Drawing.Size(42, 17);
             this.cbExact.TabIndex = 14;
