@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Windows.Markup;
 using System.Xml;
+using System.Reflection;
 
 namespace Text_WordDensity_Checker
 {
@@ -46,7 +47,17 @@ namespace Text_WordDensity_Checker
             saveData = new saveInfo();
             //pbScrollbarColors.BackColor = Color.Transparent;
             //Control.CheckForIllegalCrossThreadCalls = false;
+
+            #region DoubleBuffered dgvOutput
+            typeof(DataGridView).InvokeMember(
+            "DoubleBuffered",
+            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
+            null,
+            dgvOutput,
+            new object[] { true });
+            #endregion
         }
+
 
         private void btnSource_Click(object sender, EventArgs e)
         {
