@@ -475,6 +475,7 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
+            this.dgvOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
             dgvOutput.Columns[0].HeaderText = "Word";
             dgvOutput.Columns[0].Name = "word";
@@ -636,6 +637,11 @@ namespace Text_WordDensity_Checker
                     }
                 });
             }
+        }
+
+        private void tbFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            btnFilter.PerformClick();
         }
     }
 
