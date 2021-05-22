@@ -477,11 +477,18 @@ namespace Text_WordDensity_Checker
             dgvOutput.Refresh();
             this.dgvOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
-            dgvOutput.Columns[0].HeaderText = "Word";
+            dgvOutput.Columns[0].HeaderText = "Keyword";
             dgvOutput.Columns[0].Name = "word";
-            dgvOutput.Columns[1].HeaderText = "Actual Density";
-            dgvOutput.Columns[2].HeaderText = "Count";
-            dgvOutput.Columns[3].HeaderText = "Count Difference";
+            dgvOutput.Columns[1].HeaderText = "Current Density";
+            dgvOutput.Columns[1].DisplayIndex = 4;
+
+            dgvOutput.Columns[2].HeaderText = "Current Count";
+            dgvOutput.Columns[2].DisplayIndex = 7;
+
+
+            dgvOutput.Columns[3].HeaderText = "Count Diff.";
+            dgvOutput.Columns[3].DisplayIndex = 5;
+
 
             dgvOutput.Columns[1].ValueType = typeof(double);
             dgvOutput.Columns[2].ValueType = typeof(int);
@@ -500,12 +507,12 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[5].DisplayIndex = 2;
 
             dgvOutput.Columns[6].ValueType = typeof(double);
-            dgvOutput.Columns[6].HeaderText = "Max Density";
+            dgvOutput.Columns[6].HeaderText = "SERP Max Density";
             dgvOutput.Columns[6].DisplayIndex = 3;
 
             dgvOutput.Columns[7].ValueType = typeof(double);
-            dgvOutput.Columns[7].HeaderText = "Correlation";
-            dgvOutput.Columns[7].DisplayIndex = 4;
+            dgvOutput.Columns[7].HeaderText = "Corre.";
+            dgvOutput.Columns[7].DisplayIndex = 6;
 
             Parallel.For(0, wordCheck.Count, i =>
             {
@@ -656,3 +663,5 @@ namespace Text_WordDensity_Checker
         public string find { get; set; }
     }
 }
+
+//"#" "Keywords" "Input Density" "SERP Max Density" "Current Density" "Count Diff." "Corre." "Current Count"
