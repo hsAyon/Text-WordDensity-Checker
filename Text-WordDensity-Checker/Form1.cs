@@ -171,7 +171,7 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[6].DisplayIndex = 3;
 
             dgvOutput.Columns[7].ValueType = typeof(double);
-            dgvOutput.Columns[7].HeaderText = "Corr.";
+            dgvOutput.Columns[7].HeaderText = "Corre.";
             dgvOutput.Columns[7].DisplayIndex = 6;
 
             /*int tempColumnId = dgvOutput.ColumnCount - 1;
@@ -480,7 +480,7 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
-            this.dgvOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            //this.dgvOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
             dgvOutput.Columns[0].HeaderText = "Keyword";
             dgvOutput.Columns[0].Name = "word";
