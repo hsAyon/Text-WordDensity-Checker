@@ -139,13 +139,18 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.ColumnCount = 8;
 
-            dgvOutput.Columns[0].HeaderText = "Word";
+            dgvOutput.Columns[0].HeaderText = "Keyword";
             dgvOutput.Columns[0].Name = "word";
 
-            dgvOutput.Columns[1].HeaderText = "Actual Density";
-            dgvOutput.Columns[2].HeaderText = "Count";
-            dgvOutput.Columns[3].HeaderText = "Count Difference";
-            
+            dgvOutput.Columns[1].HeaderText = "Current Density";
+            dgvOutput.Columns[1].DisplayIndex = 4;
+
+            dgvOutput.Columns[2].HeaderText = "Current Count";
+            dgvOutput.Columns[2].DisplayIndex = 7;
+
+            dgvOutput.Columns[3].HeaderText = "Count Diff.";
+            dgvOutput.Columns[3].DisplayIndex = 5;
+
             dgvOutput.Columns[4].HeaderText = "#";
             dgvOutput.Columns[4].DisplayIndex = 0;
             dgvOutput.Columns[4].ValueType = typeof(int);
@@ -162,12 +167,12 @@ namespace Text_WordDensity_Checker
             dgvOutput.Columns[5].DisplayIndex = 2;
 
             dgvOutput.Columns[6].ValueType = typeof(double);
-            dgvOutput.Columns[6].HeaderText = "Max Density";
+            dgvOutput.Columns[6].HeaderText = "SERP Max Density";
             dgvOutput.Columns[6].DisplayIndex = 3;
 
             dgvOutput.Columns[7].ValueType = typeof(double);
-            dgvOutput.Columns[7].HeaderText = "Correlation";
-            dgvOutput.Columns[7].DisplayIndex = 4;
+            dgvOutput.Columns[7].HeaderText = "Corr.";
+            dgvOutput.Columns[7].DisplayIndex = 6;
 
             /*int tempColumnId = dgvOutput.ColumnCount - 1;
             dgvOutput.Columns[tempColumnId].HeaderText = "Difference";
@@ -648,7 +653,12 @@ namespace Text_WordDensity_Checker
 
         private void tbFilter_KeyDown(object sender, KeyEventArgs e)
         {
-            btnFilter.PerformClick();
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnFilter.PerformClick();
+
+                e.SuppressKeyPress = true;
+            }
         }
     }
 
@@ -663,5 +673,3 @@ namespace Text_WordDensity_Checker
         public string find { get; set; }
     }
 }
-
-//"#" "Keywords" "Input Density" "SERP Max Density" "Current Density" "Count Diff." "Corre." "Current Count"
