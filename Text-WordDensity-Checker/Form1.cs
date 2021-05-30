@@ -183,7 +183,7 @@ namespace Text_WordDensity_Checker
 
             Parallel.For(0, wordCheck.Count, i =>
             {
-                string regex = @"\b" + wordCheck[i][0] + @"\b";
+                string regex = @"\b" + Regex.Escape(wordCheck[i][0]) + @"\b";
                 int countMatches = Regex.Matches(source, regex, RegexOptions.IgnoreCase).Count;
                 // | RegexOptions.Compiled
 
@@ -309,7 +309,7 @@ namespace Text_WordDensity_Checker
             }
             foreach (var word in words)
             {
-                string regex = @"\b" + word + @"\b";
+                string regex = @"\b" + Regex.Escape(word)+ @"\b";
                 MatchCollection keywordMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase);
                 foreach (Match m in keywordMatches)
                 {
