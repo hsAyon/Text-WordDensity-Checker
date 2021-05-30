@@ -183,7 +183,7 @@ namespace Text_WordDensity_Checker
 
             Parallel.For(0, wordCheck.Count, i =>
             {
-                string regex = @"\b" + Regex.Escape(wordCheck[i][0]) + @"\b";
+                string regex = @"(\b|\W|\A)" + Regex.Escape(wordCheck[i][0]) + @"(\b|\W|\Z)";
                 int countMatches = Regex.Matches(source, regex, RegexOptions.IgnoreCase).Count;
                 // | RegexOptions.Compiled
 
@@ -309,14 +309,14 @@ namespace Text_WordDensity_Checker
             }
             foreach (var word in words)
             {
-                string regex = @"\b" + Regex.Escape(word)+ @"\b";
+                string regex = @"(\b|\W|\A)" + Regex.Escape(word)+ @"(\b|\W|\Z)";
                 MatchCollection keywordMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase);
                 foreach (Match m in keywordMatches)
                 {
                     //rtbADB.Select(m.Index, m.Length);
                     tbSource.SelectionStart = m.Index;
                     tbSource.SelectionLength = m.Length;
-                    tbSource.SelectionBackColor = Color.Yellow;
+                    tbSource.SelectionBackColor = Color.LightGreen;
                 }
             }
             tbSource.DeselectAll();
