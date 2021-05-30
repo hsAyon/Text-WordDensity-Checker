@@ -130,7 +130,7 @@ namespace Text_WordDensity_Checker
 
             var source = tbSource.Text;
 
-            countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
+            countAllWords = tbSource.Text.Split(new[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray().Length;
 
             dgvOutput.Rows.Clear();
             dgvOutput.Refresh();
@@ -183,7 +183,7 @@ namespace Text_WordDensity_Checker
 
             Parallel.For(0, wordCheck.Count, i =>
             {
-                string regex = @"(\b|\W|\A)" + Regex.Escape(wordCheck[i][0]) + @"(\b|\W|\Z)";
+                string regex = @"(?=(\b|\W|\A))" + Regex.Escape(wordCheck[i][0]) + @"(?<=(\b|\W|\Z))";
                 int countMatches = Regex.Matches(source, regex, RegexOptions.IgnoreCase).Count;
                 // | RegexOptions.Compiled
 
@@ -302,17 +302,18 @@ namespace Text_WordDensity_Checker
         {
             tbSource.Text = tbSource.Text.Replace('\u00a0', '\u0020');
 
-            string[] words = tbFind.Text.Split(',');
+            string[] words = tbFind.Text.Split(new[] { ',' }).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
             for (int i = 0; i < words.Length; i++)
             {
                 words[i] = words[i].Trim();
             }
             foreach (var word in words)
             {
-                string regex = @"(\b|\W|\A)" + Regex.Escape(word)+ @"(\b|\W|\Z)";
+                string regex = @"(?=(\b|\W|\A))" + Regex.Escape(word)+ @"(?<=(\b|\W|\Z))";
                 MatchCollection keywordMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase);
                 foreach (Match m in keywordMatches)
                 {
+                    
                     //rtbADB.Select(m.Index, m.Length);
                     tbSource.SelectionStart = m.Index;
                     tbSource.SelectionLength = m.Length;
