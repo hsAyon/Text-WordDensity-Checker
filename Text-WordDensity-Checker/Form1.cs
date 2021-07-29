@@ -39,7 +39,7 @@ namespace Text_WordDensity_Checker
             listOutput[0].Add("Word");*/
 
             InitializeComponent();
-            tbSource.Font = new Font ("Calibri", 11);
+            tbSource.Font = new Font("Calibri", 11);
             tbSource.SelectionFont = new Font("Calibri", 11);
             undoList.Push("");
             countAllWords = 0;
@@ -63,7 +63,7 @@ namespace Text_WordDensity_Checker
         {
             OpenFileDialog openSource = new OpenFileDialog();
             openSource.Title = "Open source text";
-            
+
             if (openSource.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openSource.FileName;
@@ -100,8 +100,8 @@ namespace Text_WordDensity_Checker
 
                         values[0].Replace('\u00a0', '\u0020');
                         values[1].Replace('\u00a0', '\u0020');
-                        
-                        
+
+
 
                         wordOutputTemp.Add(new List<string>());
                         wordOutputTemp[i].Add(values[0]);
@@ -109,7 +109,7 @@ namespace Text_WordDensity_Checker
                         wordOutputTemp[i].Add("");
 
                         wordCheckTemp[i].Add(values[0]);
-                        wordCheckTemp[i].Add(values[1].Replace("%",""));
+                        wordCheckTemp[i].Add(values[1].Replace("%", ""));
                         wordCheckTemp[i].Add(values[2].Replace("%", ""));
                         wordCheckTemp[i].Add(values[3]);
 
@@ -141,9 +141,10 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Columns[0].HeaderText = "Keyword";
             dgvOutput.Columns[0].Name = "word";
+            dgvOutput.Columns[0].DisplayIndex = 1;
 
             dgvOutput.Columns[1].HeaderText = "Current Density";
-            dgvOutput.Columns[1].DisplayIndex = 4;
+            dgvOutput.Columns[1].DisplayIndex = 3;
 
             dgvOutput.Columns[2].HeaderText = "Current Count";
             dgvOutput.Columns[2].DisplayIndex = 7;
@@ -168,7 +169,7 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Columns[6].ValueType = typeof(double);
             dgvOutput.Columns[6].HeaderText = "SERP Max Density";
-            dgvOutput.Columns[6].DisplayIndex = 3;
+            dgvOutput.Columns[6].DisplayIndex = 4;
 
             dgvOutput.Columns[7].ValueType = typeof(double);
             dgvOutput.Columns[7].HeaderText = "Corre.";
@@ -201,7 +202,7 @@ namespace Text_WordDensity_Checker
                 row.Cells[0].Value = wordOutput[i][0];
                 row.Cells[1].Value = float.Parse(wordOutput[i][1]);
                 row.Cells[2].Value = wordOutput[i][2];
-                row.Cells[4].Value = i+1;
+                row.Cells[4].Value = i + 1;
                 row.Cells[5].Value = wordCheck[i][1];
                 row.Cells[6].Value = wordCheck[i][2];
                 row.Cells[7].Value = wordCheck[i][3];
@@ -210,15 +211,15 @@ namespace Text_WordDensity_Checker
 
                 if (actualDensity > multiplier * expectedDensity)
                 {
-                    row.Cells[3].Value = (expectedDensity * multiplier - actualDensity)/100 * (float)countAllWords;
+                    row.Cells[3].Value = (expectedDensity * multiplier - actualDensity) / 100 * (float)countAllWords;
                 }
-                else if(actualDensity > expectedDensity)
+                else if (actualDensity > expectedDensity)
                 {
                     row.Cells[3].Value = 0;
                 }
                 else
                 {
-                    row.Cells[3].Value = (expectedDensity - actualDensity)/100 * (float)countAllWords;
+                    row.Cells[3].Value = (expectedDensity - actualDensity) / 100 * (float)countAllWords;
                 }
 
                 if (actualDensity > multiplier * expectedDensity)
@@ -236,7 +237,7 @@ namespace Text_WordDensity_Checker
                         cell.Style.Font = new Font(row.DefaultCellStyle.Font, FontStyle.Bold);
                         cell.Style.ForeColor = Color.Green;
                     }
-                } 
+                }
                 else if (actualDensity <= 0)
                 {
                     foreach (DataGridViewCell cell in row.Cells)
@@ -255,10 +256,11 @@ namespace Text_WordDensity_Checker
                 }
 
                 //dgvOutput.Invoke(new Action(() => { dgvOutput.Rows.Add(row); }));
-                dgvOutput.BeginInvoke(new Action(() => { 
+                dgvOutput.BeginInvoke(new Action(() =>
+                {
                     dgvOutput.Rows.Add(row);
                     rowAddCounter++;
-                    if(rowAddCounter == wordCheck.Count)
+                    if (rowAddCounter == wordCheck.Count)
                     {
                         dgvOutput.Sort(dgvOutput.Columns[4], ListSortDirection.Ascending);
                         dgvOutput.ClearSelection();
@@ -309,11 +311,11 @@ namespace Text_WordDensity_Checker
             }
             foreach (var word in words)
             {
-                string regex = @"(?=(\b|\W|\A))" + Regex.Escape(word)+ @"(?<=(\b|\W|\Z))";
+                string regex = @"(?=(\b|\W|\A))" + Regex.Escape(word) + @"(?<=(\b|\W|\Z))";
                 MatchCollection keywordMatches = Regex.Matches(tbSource.Text, regex, RegexOptions.IgnoreCase);
                 foreach (Match m in keywordMatches)
                 {
-                    
+
                     //rtbADB.Select(m.Index, m.Length);
                     tbSource.SelectionStart = m.Index;
                     tbSource.SelectionLength = m.Length;
@@ -485,8 +487,10 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Columns[0].HeaderText = "Keyword";
             dgvOutput.Columns[0].Name = "word";
+            dgvOutput.Columns[0].DisplayIndex = 1;
+
             dgvOutput.Columns[1].HeaderText = "Current Density";
-            dgvOutput.Columns[1].DisplayIndex = 4;
+            dgvOutput.Columns[1].DisplayIndex = 3;
 
             dgvOutput.Columns[2].HeaderText = "Current Count";
             dgvOutput.Columns[2].DisplayIndex = 7;
@@ -514,7 +518,7 @@ namespace Text_WordDensity_Checker
 
             dgvOutput.Columns[6].ValueType = typeof(double);
             dgvOutput.Columns[6].HeaderText = "SERP Max Density";
-            dgvOutput.Columns[6].DisplayIndex = 3;
+            dgvOutput.Columns[6].DisplayIndex = 4;
 
             dgvOutput.Columns[7].ValueType = typeof(double);
             dgvOutput.Columns[7].HeaderText = "Corre.";
@@ -589,7 +593,8 @@ namespace Text_WordDensity_Checker
                 }
 
                 //dgvOutput.Invoke(new Action(() => { dgvOutput.Rows.Add(row); }));
-                dgvOutput.BeginInvoke(new Action(() => {
+                dgvOutput.BeginInvoke(new Action(() =>
+                {
                     dgvOutput.Rows.Add(row);
                     rowAddCounter++;
                     if (rowAddCounter == wordCheck.Count)
@@ -605,7 +610,8 @@ namespace Text_WordDensity_Checker
         {
             if (string.IsNullOrEmpty(tbFilter.Text))
             {
-                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row => {
+                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row =>
+                {
                     dgvOutput.BeginInvoke(new Action(() =>
                     {
                         row.Visible = true;
@@ -614,7 +620,8 @@ namespace Text_WordDensity_Checker
             }
             else if (cbExact.Checked)
             {
-                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row => {
+                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row =>
+                {
                     if (row.Cells[0].Value.ToString().ToLower().Equals(tbFilter.Text.ToLower()))
                     {
                         dgvOutput.BeginInvoke(new Action(() =>
@@ -630,10 +637,11 @@ namespace Text_WordDensity_Checker
                         }));
                     }
                 });
-            } 
+            }
             else
             {
-                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row => {
+                Parallel.ForEach(dgvOutput.Rows.Cast<DataGridViewRow>(), row =>
+                {
                     if (row.Cells[0].Value.ToString().ToLower().Contains(tbFilter.Text.ToLower()))
                     {
                         dgvOutput.BeginInvoke(new Action(() =>
@@ -661,16 +669,91 @@ namespace Text_WordDensity_Checker
                 e.SuppressKeyPress = true;
             }
         }
-    }
 
-    public class saveInfo
-    {
-        public string source { get; set; }
-        public int countAllWords { get; set; }
-        public double multiplier { get; set; }
-        public List<List<string>> words { get; set; }
-        public List<List<string>> output { get; set; }
-        //public DataGridView dgvOut { get; set; }
-        public string find { get; set; }
+        private void btnSaveS_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveSes = new SaveFileDialog();
+            saveSes.Title = "Save Session";
+            saveSes.DefaultExt = "xml";
+
+            if (saveSes.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string filePath = saveSes.FileName;
+                    //File.WriteAllText(filePath, finalCSV);
+
+                    saveData.source = tbSource.Text;
+                    saveData.countAllWords = countAllWords;
+                    saveData.multiplier = double.Parse(nudMultiplier.Value.ToString());
+                    saveData.words = wordCheck;
+                    saveData.output = wordOutput;
+                    //saveData.dgvOut = dgvOutput;
+                    saveData.find = tbFind.Text;
+
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(saveInfo));
+                    TextWriter textWriter = new StreamWriter(filePath);
+                    serializer.Serialize(textWriter, saveData);
+                    textWriter.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error saving session: \n" + ex.Message);
+                }
+            }
+        }
+
+        private void btnLoadS_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog loadSes = new OpenFileDialog();
+            loadSes.Title = "Load Session";
+            loadSes.DefaultExt = "xml";
+            loadSes.Multiselect = false;
+
+            if (loadSes.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    saveInfo loadData;
+
+                    XmlSerializer xs = new XmlSerializer(typeof(saveInfo));
+                    using (FileStream fs = new FileStream(loadSes.FileName, FileMode.Open))
+                    {
+                        loadData = xs.Deserialize(fs) as saveInfo;
+                    }
+
+                    if (loadData != null)
+                    {
+                        tbSource.Text = loadData.source;
+                        nudMultiplier.Value = decimal.Parse(loadData.multiplier.ToString());
+                        wordCheck = loadData.words;
+                        wordOutput = loadData.output;
+                        countAllWords = loadData.countAllWords;
+
+                        loadOutput();
+
+                        //dgvOutput = loadData.dgvOut;
+                        tbFind.Text = loadData.find;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading session: \n" + ex.Message);
+                }
+            }
+        }
+
+        public class saveInfo
+        {
+            public string source { get; set; }
+            public int countAllWords { get; set; }
+            public double multiplier { get; set; }
+            public List<List<string>> words { get; set; }
+            public List<List<string>> output { get; set; }
+            //public DataGridView dgvOut { get; set; }
+            public string find { get; set; }
+        }
     }
 }

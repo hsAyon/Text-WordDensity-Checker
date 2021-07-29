@@ -48,6 +48,8 @@ namespace Text_WordDensity_Checker
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbSource = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSaveS = new System.Windows.Forms.Button();
+            this.btnLoadS = new System.Windows.Forms.Button();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiplier)).BeginInit();
             this.panel4.SuspendLayout();
@@ -164,6 +166,8 @@ namespace Text_WordDensity_Checker
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.btnLoadS);
+            this.panel4.Controls.Add(this.btnSaveS);
             this.panel4.Controls.Add(this.tbFind);
             this.panel4.Controls.Add(this.btnFind);
             this.panel4.Controls.Add(this.btnFindClear);
@@ -283,6 +287,26 @@ namespace Text_WordDensity_Checker
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 623);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // btnSaveS
+            // 
+            this.btnSaveS.Location = new System.Drawing.Point(487, 3);
+            this.btnSaveS.Name = "btnSaveS";
+            this.btnSaveS.Size = new System.Drawing.Size(75, 49);
+            this.btnSaveS.TabIndex = 12;
+            this.btnSaveS.Text = "Save Session";
+            this.btnSaveS.UseVisualStyleBackColor = true;
+            this.btnSaveS.Click += new System.EventHandler(this.btnSaveS_Click);
+            // 
+            // btnLoadS
+            // 
+            this.btnLoadS.Location = new System.Drawing.Point(406, 3);
+            this.btnLoadS.Name = "btnLoadS";
+            this.btnLoadS.Size = new System.Drawing.Size(75, 49);
+            this.btnLoadS.TabIndex = 13;
+            this.btnLoadS.Text = "Load Session";
+            this.btnLoadS.UseVisualStyleBackColor = true;
+            this.btnLoadS.Click += new System.EventHandler(this.btnLoadS_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,6 +352,8 @@ namespace Text_WordDensity_Checker
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.TextBox tbFilter;
         private System.Windows.Forms.CheckBox cbExact;
+        private System.Windows.Forms.Button btnLoadS;
+        private System.Windows.Forms.Button btnSaveS;
     }
 }
 
