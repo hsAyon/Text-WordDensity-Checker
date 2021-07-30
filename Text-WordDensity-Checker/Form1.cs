@@ -542,7 +542,7 @@ namespace Text_WordDensity_Checker
                 row.Cells[7].Value = wordCheck[i][3];
 
 
-                row.Cells[4].Value = i;
+                row.Cells[4].Value = i + 1;
 
                 //row.Cells[tempColumnId].Value = expectedDensity - actualDensity;
 
