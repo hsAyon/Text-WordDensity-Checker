@@ -319,7 +319,7 @@ namespace Text_WordDensity_Checker
                     //rtbADB.Select(m.Index, m.Length);
                     tbSource.SelectionStart = m.Index;
                     tbSource.SelectionLength = m.Length;
-                    tbSource.SelectionBackColor = Color.LightGreen;
+                    tbSource.SelectionBackColor = System.Drawing.ColorTranslator.FromHtml("#00ff00");
                 }
             }
             tbSource.DeselectAll();
